@@ -290,7 +290,7 @@ public class AdminDashboard extends JFrame {
 
         int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 0);
         Vehicle selectedVehicle = vehicleController.getVehicleById(vehicleId);
-        
+
         if (selectedVehicle != null) {
             VehicleDialog dialog = new VehicleDialog(this, vehicleController, selectedVehicle);
             dialog.setVisible(true);

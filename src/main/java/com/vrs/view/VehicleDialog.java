@@ -81,84 +81,133 @@ public class VehicleDialog extends JDialog {
         int row = 0;
 
         // Make
-        gbc.gridx = 0; gbc.gridy = row;
+        gbc.gridx = 0;
+        gbc.gridy = row;
         panel.add(new JLabel("Make: *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         makeField = new JTextField(20);
         panel.add(makeField, gbc);
 
         row++;
         // Model
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("Model: *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         modelField = new JTextField(20);
         panel.add(modelField, gbc);
 
         row++;
         // Type
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("Type: *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
-        typeCombo = new JComboBox<>(new String[]{"Car", "Bike", "Van", "SUV", "Truck"});
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        typeCombo = new JComboBox<>(new String[] { "Car", "Bike", "Van", "SUV", "Truck" });
         panel.add(typeCombo, gbc);
 
         row++;
         // License Plate
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("License Plate: *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         licensePlateField = new JTextField(20);
         panel.add(licensePlateField, gbc);
 
         row++;
         // Daily Rate
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("Daily Rate ($): *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         dailyRateField = new JTextField(20);
         panel.add(dailyRateField, gbc);
 
         row++;
         // Color
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("Color:"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         colorField = new JTextField(20);
         panel.add(colorField, gbc);
 
         row++;
         // Year
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("Year: *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         yearField = new JTextField(20);
         panel.add(yearField, gbc);
 
         row++;
         // Capacity
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         panel.add(new JLabel("Capacity: *"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
         capacityField = new JTextField(20);
         panel.add(capacityField, gbc);
 
         row++;
         // Available checkbox (only show in edit mode)
         if (isEditMode) {
-            gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+            gbc.gridx = 0;
+            gbc.gridy = row;
+            gbc.fill = GridBagConstraints.NONE;
+            gbc.weightx = 0;
             panel.add(new JLabel("Available:"), gbc);
-            gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+            gbc.gridx = 1;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.weightx = 1.0;
             availableCheckBox = new JCheckBox("Vehicle is available for booking");
             panel.add(availableCheckBox, gbc);
             row++;
         }
 
         // Description
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.NONE; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         panel.add(new JLabel("Description:"), gbc);
-        gbc.gridx = 1; gbc.fill = GridBagConstraints.BOTH; gbc.weightx = 1.0; gbc.weighty = 1.0;
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         descriptionArea = new JTextArea(4, 20);
         descriptionArea.setLineWrap(true);
         descriptionArea.setWrapStyleWord(true);
@@ -168,7 +217,10 @@ public class VehicleDialog extends JDialog {
 
         // Required fields note
         row++;
-        gbc.gridx = 0; gbc.gridy = row + 1; gbc.gridwidth = 2; gbc.weighty = 0;
+        gbc.gridx = 0;
+        gbc.gridy = row + 1;
+        gbc.gridwidth = 2;
+        gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JLabel noteLabel = new JLabel("* Required fields");
         noteLabel.setFont(new Font("Arial", Font.ITALIC, 11));
@@ -297,10 +349,11 @@ public class VehicleDialog extends JDialog {
                 boolean success;
                 if (isEditMode) {
                     // Update existing vehicle
-                    boolean isAvailable = availableCheckBox != null ? availableCheckBox.isSelected() : vehicle.isAvailable();
+                    boolean isAvailable = availableCheckBox != null ? availableCheckBox.isSelected()
+                            : vehicle.isAvailable();
                     success = vehicleController.updateVehicle(vehicle.getVehicleId(), make, model, type,
                             licensePlate, dailyRate, isAvailable, color, year, capacity, description);
-                    
+
                     if (success) {
                         JOptionPane.showMessageDialog(VehicleDialog.this,
                                 "Vehicle updated successfully!",
@@ -316,7 +369,7 @@ public class VehicleDialog extends JDialog {
                     // Add new vehicle
                     success = vehicleController.addVehicle(make, model, type, licensePlate,
                             dailyRate, color, year, capacity, description);
-                    
+
                     if (success) {
                         JOptionPane.showMessageDialog(VehicleDialog.this,
                                 "Vehicle added successfully!",

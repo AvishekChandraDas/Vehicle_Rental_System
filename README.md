@@ -4,48 +4,263 @@
 [![SQLite](https://img.shields.io/badge/Database-SQLite-003B57.svg)](https://www.sqlite.org/)
 [![Swing](https://img.shields.io/badge/GUI-Swing-blue.svg)](https://docs.oracle.com/javase/tutorial/uiswi## 📄 License
 
-This project is developed for **educational purposes** as part of academic coursework. 
+This project is developed for **educational purposes** as part of academic coursework.
 
 ---
 
 ## 👨‍💻 Author & Acknowledgments
 
-### Author
-**Avishek Chandra Das**
-- GitHub: [@AvishekChandraDas](https://github.com/AvishekChandraDas)
-- Email: [Email](avishekchandradas@gmail.com)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/avishekchandradas)
+<div align="center">
 
-### Academic Supervision
-**Course Instructor/Supervisor**
-- [Khudeja Khanom Anwara](https://metrouni.edu.bd/sites/university/faculty-members/department-of-computer-science-engineering/180)
-- Institution: [Metropolitan University](https://metrouni.edu.bd)
-- Course:Object-Oriented Programming
-- Academic Year: 2025
+### 🎓 **Project Creator**
 
-### Project Context
-This Vehicle Rental System was developed as part of academic coursework to demonstrate:
-- Advanced Java programming concepts
-- Object-oriented design principles
-- Database integration with JDBC
-- GUI development with Swing
-- Software engineering best practices
+<table>
+<tr>
+<td align="center">
+<img src="https://github.com/AvishekChandraDas.png" width="100px;" alt="Avishek Chandra Das"/><br />
+<sub><b>Avishek Chandra Das</b></sub><br />
+<sub>Computer Science & Engineering Student</sub><br />
+<sub>Metropolitan University</sub>
+</td>
+</tr>
+</table>
 
----
+**📧 Connect with me:**
+<br/>
+[![GitHub](https://img.shields.io/badge/GitHub-%23181717.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AvishekChandraDas)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/avishekchandradas)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:avishekchandradas@gmail.com)
 
-- **Academic Use**: Free to use for learning and educational purposes
-- **Commercial Use**: Not permitted without explicit permission
-- **Modifications**: Allowed for educational and learning purposes
-- **Distribution**: Please maintain attribution to original author
+</div>
 
 ---
 
-## 🌟 Acknowledgments
+### 🎯 **Academic Excellence**
 
-- **SQLite Team** for the lightweight database engine
-- **Oracle** for Java development platform and Swing framework
-- **Academic Institution** for providing the learning environment
-- **Open Source Community** for inspiration and best practices
+<table>
+<tr>
+<td>
+
+**🏫 Institution**
+
+</td>
+<td>
+
+[**Metropolitan University**](https://metrouni.edu.bd)
+<br/>📍 Dhaka, Bangladesh
+
+</td>
+</tr>
+<tr>
+<td>
+
+**👨‍🏫 Course Supervisor**
+
+</td>
+<td>
+
+[**Khudeja Khanom Anwara**](https://metrouni.edu.bd/sites/university/faculty-members/department-of-computer-science-engineering/180)
+<br/>🎓 Faculty, Computer Science & Engineering
+
+</td>
+</tr>
+<tr>
+<td>
+
+**📚 Course**
+
+</td>
+<td>
+
+**Object-Oriented Programming**
+<br/>🗓️ Academic Year 2025
+
+</td>
+</tr>
+<tr>
+<td>
+
+**🏆 Project Status**
+
+</td>
+<td>
+
+**✅ Academic Excellence Project**
+<br/>🌟 Advanced Java Programming Showcase
+
+</td>
+</tr>
+</table>
+
+---
+
+### 🎨 **Project Design Philosophy**
+
+<div align="center">
+
+```
+🎯 EDUCATIONAL EXCELLENCE
+├── 💡 Innovation in Learning
+├── 🔧 Practical Implementation
+├── 📈 Professional Development
+└── 🌟 Academic Achievement
+
+🏗️ DEVELOPMENT APPROACH
+├── 🎨 Modern UI/UX Design
+├── 🏛️ Clean Architecture (MVC)
+├── 🔒 Security Best Practices
+└── 📱 User-Centered Design
+```
+
+</div>
+
+### 🎯 **Learning Objectives Achieved**
+
+<table>
+<tr>
+<td width="33%" align="center">
+
+**🔧 Technical Mastery**
+<br/>
+✅ Advanced Java Programming<br/>
+✅ Object-Oriented Design<br/>
+✅ Database Integration (JDBC)<br/>
+✅ GUI Development (Swing)<br/>
+✅ MVC Architecture<br/>
+
+</td>
+<td width="33%" align="center">
+
+**💡 Problem Solving**
+<br/>
+✅ Real-world Application Design<br/>
+✅ Complex Business Logic<br/>
+✅ Data Validation Systems<br/>
+✅ Error Handling Strategies<br/>
+✅ Performance Optimization<br/>
+
+</td>
+<td width="33%" align="center">
+
+**🎨 Professional Skills**
+<br/>
+✅ Software Documentation<br/>
+✅ Code Organization<br/>
+✅ Testing Methodologies<br/>
+✅ UI/UX Design Principles<br/>
+✅ Project Management<br/>
+
+</td>
+</tr>
+</table>
+
+---
+
+### 📜 **Usage Rights & License**
+
+<div align="center">
+
+|   **License Type**    |     **Educational License**      |
+| :-------------------: | :------------------------------: |
+|  🎓 **Academic Use**  |     ✅ **Free & Encouraged**     |
+| 🏢 **Commercial Use** |    ❌ **Requires Permission**    |
+| 🔄 **Modifications**  |   ✅ **Allowed for Learning**    |
+|  📤 **Distribution**  | ⚠️ **With Attribution Required** |
+
+**📋 Usage Guidelines:**
+
+- 🎓 **Students**: Free to study, learn, and modify for educational purposes
+- 👨‍🏫 **Educators**: May use as teaching material with proper attribution
+- 🏢 **Commercial**: Please contact author for commercial licensing
+- 🔄 **Contributors**: Contributions welcome through GitHub pull requests
+
+</div>
+
+---
+
+## 🌟 **Special Acknowledgments**
+
+<div align="center">
+
+### 🙏 **Gratitude & Recognition**
+
+<table>
+<tr>
+<td align="center" width="25%">
+
+**🗄️ Database**
+<br/>
+[![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+<br/>
+_Lightweight & Reliable_
+
+</td>
+<td align="center" width="25%">
+
+**☕ Platform**
+<br/>
+[![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
+<br/>
+_Robust & Scalable_
+
+</td>
+<td align="center" width="25%">
+
+**🖼️ GUI Framework**
+<br/>
+[![Swing](https://img.shields.io/badge/Swing-GUI-blue.svg?style=for-the-badge&logo=java&logoColor=white)](https://docs.oracle.com/javase/tutorial/uiswing/)
+<br/>
+_Rich & Interactive_
+
+</td>
+<td align="center" width="25%">
+
+**🏫 Institution**
+<br/>
+[![University](https://img.shields.io/badge/Metropolitan-University-green.svg?style=for-the-badge&logo=graduation-cap&logoColor=white)](https://metrouni.edu.bd)
+<br/>
+_Academic Excellence_
+
+</td>
+</tr>
+</table>
+
+### 💝 **Special Thanks To:**
+
+🎓 **Academic Community**
+
+- Faculty members for guidance and mentorship
+- Fellow students for collaboration and peer learning
+- Academic institution for providing resources and support
+
+💻 **Technology Partners**
+
+- **Oracle Corporation** for Java platform and comprehensive documentation
+- **SQLite Development Team** for the exceptional embedded database engine
+- **Open Source Community** for tools, libraries, and inspiration
+
+🌍 **Global Learning Network**
+
+- Stack Overflow community for problem-solving support
+- GitHub community for version control and collaboration platform
+- Java community for continuous innovation and best practices
+
+---
+
+<div align="center">
+
+**🏆 Academic Achievement Badge**
+
+[![Academic Project](https://img.shields.io/badge/Academic%20Project-Excellence-gold?style=for-the-badge&logo=graduation-cap)](https://github.com/AvishekChandraDas/Vehicle_Rental_System)
+[![Java Programming](https://img.shields.io/badge/Java%20Programming-Advanced-orange?style=for-the-badge&logo=java)](https://github.com/AvishekChandraDas/Vehicle_Rental_System)
+[![Database Design](https://img.shields.io/badge/Database%20Design-Professional-blue?style=for-the-badge&logo=sqlite)](https://github.com/AvishekChandraDas/Vehicle_Rental_System)
+[![UI/UX Design](https://img.shields.io/badge/UI%2FUX%20Design-Modern-purple?style=for-the-badge&logo=figma)](https://github.com/AvishekChandraDas/Vehicle_Rental_System)
+
+_"Excellence in education through practical implementation"_
+
+</div>
+
+</div>
 
 ---
 
@@ -78,6 +293,7 @@ A comprehensive desktop application for managing vehicle rentals built with Java
 - [Database Schema](#-database-schema)
 - [Usage Guide](#-usage-guide)
 - [Development Features](#-development-features)
+- [Design & Style](#-design--style)
 - [Future Enhancements](#-future-enhancements)
 - [Troubleshooting](#-troubleshooting)
 - [Author & Acknowledgments](#-author--acknowledgments)
@@ -89,16 +305,20 @@ A comprehensive desktop application for managing vehicle rentals built with Java
 ## 📸 Screenshots
 
 ### Login Interface
-*Clean and user-friendly authentication system*
+
+_Clean and user-friendly authentication system_
 
 ### User Dashboard
-*Intuitive vehicle browsing and booking interface*
+
+_Intuitive vehicle browsing and booking interface_
 
 ### Admin Panel
-*Comprehensive management dashboard for administrators*
+
+_Comprehensive management dashboard for administrators_
 
 ### Booking System
-*Streamlined reservation process with date validation*
+
+_Streamlined reservation process with date validation_
 
 ---
 
@@ -142,6 +362,7 @@ A comprehensive desktop application for managing vehicle rentals built with Java
 ## 🛠️ Installation & Setup
 
 ### Option 1: Quick Run (Recommended)
+
 ```bash
 # Clone the repository
 git clone https://github.com/AvishekChandraDas/Vehicle_Rental_System.git
@@ -305,15 +526,261 @@ The application uses SQLite database with the following tables:
 
 ---
 
+## 🎨 Design & Style
+
+### 🖼️ Visual Design Philosophy
+
+The Vehicle Rental System follows **modern desktop application design principles** with a focus on:
+
+- **Clean, Professional Interface**: Minimalist design that prioritizes functionality
+- **Consistent Visual Language**: Unified styling across all components
+- **User-Centric Experience**: Intuitive navigation and clear visual hierarchy
+- **Accessibility First**: High contrast colors and readable typography
+
+### 🎯 Design Principles
+
+#### **1. Simplicity & Clarity**
+
+```
+✅ Clean layouts with ample whitespace
+✅ Clear visual hierarchy with proper typography
+✅ Intuitive iconography and button placement
+✅ Consistent color coding throughout the application
+```
+
+#### **2. Professional Aesthetics**
+
+```
+🎨 Modern Segoe UI font family
+🎨 Professional color palette (Blues, Grays, Greens)
+🎨 Subtle shadows and borders for depth
+🎨 Consistent spacing and alignment
+```
+
+#### **3. User Experience Focus**
+
+```
+⚡ Real-time validation with visual feedback
+⚡ Responsive button states (hover, focus, active)
+⚡ Progress indicators for long operations
+⚡ Contextual help and error messages
+```
+
+### 🎪 UI Components & Styling
+
+#### **Color Palette**
+
+```css
+/* Primary Colors */
+Primary Blue:    #3498db (rgb(52, 152, 219))
+Success Green:   #228b22 (rgb(34, 139, 34))
+Error Red:       #dc143c (rgb(220, 20, 60))
+Warning Orange:  #ff8c00 (rgb(255, 140, 0))
+
+/* Neutral Colors */
+Dark Gray:       #2c3e50 (rgb(44, 62, 80))
+Medium Gray:     #7f8c8d (rgb(127, 140, 141))
+Light Gray:      #ecf0f1 (rgb(236, 240, 241))
+White:           #ffffff (rgb(255, 255, 255))
+```
+
+#### **Typography System**
+
+```java
+// Header Fonts
+Main Title:      Segoe UI, Bold, 28px
+Section Headers: Segoe UI, Bold, 18px
+Card Titles:     Segoe UI, Bold, 16px
+
+// Body Text
+Form Labels:     Segoe UI, Plain, 14px
+Input Fields:    Segoe UI, Plain, 14px
+Body Text:       Segoe UI, Plain, 13px
+Help Text:       Segoe UI, Plain, 11px
+```
+
+#### **Button Styling**
+
+```java
+// Primary Buttons
+Background: #3498db (Primary Blue)
+Text Color: White
+Hover State: Darker blue with subtle glow
+Border: None, rounded corners (5px)
+
+// Secondary Buttons
+Background: #ecf0f1 (Light Gray)
+Text Color: #2c3e50 (Dark Gray)
+Hover State: Slightly darker background
+Border: 1px solid #bdc3c7
+
+// Success Buttons
+Background: #27ae60 (Green)
+Text Color: White
+Used for: Confirm, Save, Submit actions
+
+// Danger Buttons
+Background: #e74c3c (Red)
+Text Color: White
+Used for: Delete, Cancel destructive actions
+```
+
+### 🏗️ Layout Architecture
+
+#### **Window Design Standards**
+
+```
+📐 Window Dimensions:
+   - Login Window: 400×500px (Fixed)
+   - Main Dashboard: 1200×800px (Resizable)
+   - Dialog Windows: 600×400px (Modal)
+
+📐 Spacing System:
+   - Component Padding: 10-15px
+   - Section Margins: 20-30px
+   - Form Field Spacing: 8-12px
+   - Button Margins: 10px
+```
+
+#### **Grid System**
+
+```java
+// Layout Manager: GridBagLayout
+GridBagConstraints standards:
+- Insets: new Insets(5, 5, 5, 5)  // Consistent spacing
+- Fill: HORIZONTAL for form fields
+- Anchor: WEST for labels, CENTER for buttons
+- WeightX: 1.0 for expandable components
+```
+
+### 🎭 Interactive Elements
+
+#### **Form Components**
+
+```java
+// Text Fields
+Border: 1px solid #bdc3c7
+Focus Border: 2px solid #3498db
+Background: White
+Padding: 8px
+Corner Radius: 4px
+
+// Validation States
+✅ Valid: Green border (#27ae60) + checkmark icon
+❌ Invalid: Red border (#e74c3c) + error icon
+⚠️ Warning: Orange border (#f39c12) + warning icon
+```
+
+#### **Interactive States**
+
+```java
+// Hover Effects
+Buttons: Subtle color darkening + cursor change
+Links: Underline appearance + color change
+Form Fields: Border color intensification
+
+// Focus States
+Outline: 2px solid #3498db
+Box Shadow: 0 0 0 3px rgba(52, 152, 219, 0.2)
+Visible focus indicators for accessibility
+```
+
+#### **Data Tables**
+
+```java
+// Table Styling
+Header Background: #34495e (Dark gray)
+Header Text: White, Bold
+Row Alternating: #f8f9fa / White
+Selected Row: #e3f2fd (Light blue)
+Border: 1px solid #dee2e6
+```
+
+### 📱 Responsive Design Features
+
+#### **Adaptive Layouts**
+
+- **Flexible Components**: Auto-resizing tables and panels
+- **Scrollable Content**: Automatic scrollbars for overflow
+- **Dynamic Sizing**: Components adapt to content length
+- **Multi-Resolution Support**: Works on various screen sizes
+
+#### **Accessibility Features**
+
+```java
+// Keyboard Navigation
+Tab Order: Logical flow through form elements
+Enter Key: Submits forms or activates primary actions
+Escape Key: Cancels dialogs and operations
+
+// Screen Reader Support
+Alt Text: Descriptive labels for all interactive elements
+ARIA Labels: Proper accessibility markup
+High Contrast: Clear color distinctions
+```
+
+### 🎪 Special UI Features
+
+#### **Real-Time Validation System**
+
+- **Visual Feedback**: Instant color changes and icons
+- **Progressive Enhancement**: Validation improves as user types
+- **Error Prevention**: Blocks invalid submissions with clear guidance
+
+#### **Password Strength Indicator**
+
+```java
+// Visual Progress Bar
+Weak (0-25%):   Red background, "Weak" text
+Fair (26-50%):  Orange background, "Fair" text
+Good (51-75%):  Yellow background, "Good" text
+Strong (76-100%): Green background, "Strong" text
+```
+
+#### **Auto-Formatting Components**
+
+- **Phone Numbers**: `1234567890` → `(123) 456-7890`
+- **Dates**: Smart date picker with validation
+- **Currency**: Automatic decimal formatting for prices
+
+### 🖼️ Visual Hierarchy
+
+#### **Information Architecture**
+
+```
+1️⃣ Primary Information
+   └── Large, bold headers (#2c3e50)
+   └── Key data in prominent positions
+
+2️⃣ Secondary Information
+   └── Medium-sized labels and values
+   └── Supporting details and descriptions
+
+3️⃣ Tertiary Information
+   └── Small helper text and metadata
+   └── Timestamps and system information
+```
+
+#### **Content Prioritization**
+
+- **Action Items**: Bright, contrasting colors
+- **Status Information**: Color-coded for quick recognition
+- **Navigation Elements**: Consistent positioning and styling
+- **Data Display**: Clean tables with clear sorting indicators
+
+---
+
 ## 🚀 Future Enhancements
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Java JDK 17 or higher
 - Git (for cloning the repository)
 
 ### Clone and Run
+
 ```bash
 # Clone the repository
 git clone https://github.com/AvishekChandraDas/Vehicle_Rental_System.git
@@ -326,6 +793,7 @@ run.bat         # On Windows
 ```
 
 ### Default Login Credentials
+
 - **Admin**: Username: `admin`, Password: `admin123`
 - **User**: Register through the application or create via admin panel
 
