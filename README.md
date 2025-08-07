@@ -1,8 +1,81 @@
-# Smart Vehicle Rental System
+# 🚗 Smart Vehicle Rental System
+
+[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/)
+[![SQLite](https://img.shields.io/badge/Database-SQLite-003B57.svg)](https://www.sqlite.org/)
+[![Swing](https://img.shields.io/badge/GUI-Swing-blue.svg)](https://docs.oracle.com/javase/tutorial/uiswi## 📄 License
+
+This project is developed for **educational purposes** as part of academic coursework. 
+
+- **Academic Use**: Free to use for learning and educational purposes
+- **Commercial Use**: Not permitted without explicit permission
+- **Modifications**: Allowed for educational and learning purposes
+- **Distribution**: Please maintain attribution to original author
+
+---
+
+## 🌟 Acknowledgments
+
+- **SQLite Team** for the lightweight database engine
+- **Oracle** for Java development platform and Swing framework
+- **Academic Institution** for providing the learning environment
+- **Open Source Community** for inspiration and best practices
+
+---
+
+## 📊 Project Statistics
+
+- **Total Lines of Code**: 5,000+ lines
+- **Programming Language**: Java 17+
+- **Database**: SQLite with JDBC
+- **Architecture Pattern**: MVC (Model-View-Controller)
+- **GUI Framework**: Java Swing
+- **Development Time**: [Project Duration]
+- **Features Implemented**: 20+ core features
+
+---
+
+*⭐ If you found this project helpful, please consider giving it a star on GitHub!*icense](https://img.shields.io/badge/License-Educational-green.svg)](#license)
 
 A comprehensive desktop application for managing vehicle rentals built with Java and Swing. This system provides an intuitive interface for both users and administrators to handle vehicle bookings, user management, and rental operations.
 
-## Features
+> **Academic Project**: This project was developed as part of advanced Java programming coursework, demonstrating professional software development practices and design patterns.
+
+## 📋 Table of Contents
+
+- [Screenshots](#-screenshots)
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [System Requirements](#-system-requirements)
+- [Installation & Setup](#️-installation--setup)
+- [Project Structure](#-project-structure)
+- [Database Schema](#-database-schema)
+- [Usage Guide](#-usage-guide)
+- [Development Features](#-development-features)
+- [Future Enhancements](#-future-enhancements)
+- [Troubleshooting](#-troubleshooting)
+- [Author & Acknowledgments](#-author--acknowledgments)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 📸 Screenshots
+
+### Login Interface
+*Clean and user-friendly authentication system*
+
+### User Dashboard
+*Intuitive vehicle browsing and booking interface*
+
+### Admin Panel
+*Comprehensive management dashboard for administrators*
+
+### Booking System
+*Streamlined reservation process with date validation*
+
+---
+
+## 🎯 Features
 
 ### User Features
 
@@ -37,15 +110,24 @@ A comprehensive desktop application for managing vehicle rentals built with Java
 - **Memory**: Minimum 512MB RAM
 - **Storage**: 50MB free disk space
 
-## Installation & Setup
+---
 
-### Prerequisites
+## 🛠️ Installation & Setup
 
-1. Install Java JDK 17 or higher
-2. Install Apache Maven 3.6+
-3. Ensure JAVA_HOME environment variable is set
+### Option 1: Quick Run (Recommended)
+```bash
+# Clone the repository
+git clone https://github.com/AvishekChandraDas/Vehicle_Rental_System.git
+cd Vehicle_Rental_System
 
-### Building the Application
+# Run directly using provided scripts
+./run.sh        # macOS/Linux
+run.bat         # Windows
+```
+
+### Option 2: Maven Build
+
+If you have Maven installed:
 
 ```bash
 # Clone or download the project
@@ -81,19 +163,9 @@ java -jar target/vehicle-rental-system-1.0.0-jar-with-dependencies.jar
 java -cp target/classes:target/dependency/* com.vrs.view.LoginWindow
 ```
 
-## Default Login Credentials
+---
 
-### Admin Access
-
-- **Username**: admin
-- **Password**: admin123
-
-### User Access
-
-- Register a new user account through the registration form
-- Or create test users through the admin panel
-
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 VRS/
@@ -133,7 +205,9 @@ VRS/
 └── README.md              # This file
 ```
 
-## Database Schema
+---
+
+## 🗄️ Database Schema
 
 The application uses SQLite database with the following tables:
 
@@ -170,7 +244,9 @@ The application uses SQLite database with the following tables:
 - first_name, last_name
 - email, is_active
 
-## Usage Guide
+---
+
+## 📖 Usage Guide
 
 ### For Users
 
@@ -189,7 +265,9 @@ The application uses SQLite database with the following tables:
 4. **Booking Oversight**: Monitor all bookings, confirm or cancel as needed
 5. **System Monitoring**: Track overall system usage and statistics
 
-## Development Features
+---
+
+## 🔧 Development Features
 
 - **MVC Architecture**: Clean separation of concerns
 - **Exception Handling**: Comprehensive error management
@@ -197,6 +275,36 @@ The application uses SQLite database with the following tables:
 - **Database Transactions**: ACID compliance for data integrity
 - **Logging**: Built-in logging for debugging and monitoring
 - **Extensible Design**: Easy to add new features and modules
+
+---
+
+## 🚀 Future Enhancements
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Java JDK 17 or higher
+- Git (for cloning the repository)
+
+### Clone and Run
+```bash
+# Clone the repository
+git clone https://github.com/AvishekChandraDas/Vehicle_Rental_System.git
+cd Vehicle_Rental_System
+
+# Run the application
+./run.sh        # On macOS/Linux
+# OR
+run.bat         # On Windows
+```
+
+### Default Login Credentials
+- **Admin**: Username: `admin`, Password: `admin123`
+- **User**: Register through the application or create via admin panel
+
+---
+
+## 💻 System Requirements
 
 ## Future Enhancements
 
@@ -207,7 +315,9 @@ The application uses SQLite database with the following tables:
 - **Multi-location Support**: Support for multiple rental locations
 - **Vehicle Tracking**: GPS integration for vehicle monitoring
 
-## Troubleshooting
+---
+
+## 🔧 Troubleshooting
 
 ### Common Issues
 
@@ -234,7 +344,45 @@ The application uses SQLite database with the following tables:
 
 For technical support or bug reports, please check the application logs and ensure all system requirements are met.
 
-## License
+---
+
+## 👨‍💻 Author & Acknowledgments
+
+### Author
+**Avishek Chandra Das**
+- GitHub: [@AvishekChandraDas](https://github.com/AvishekChandraDas)
+- Email: [Your Email Address]
+- LinkedIn: [Your LinkedIn Profile]
+
+### Academic Supervision
+**Course Instructor/Supervisor**
+- Institution: [Your University/College Name]
+- Course: Advanced Java Programming / Object-Oriented Programming
+- Academic Year: [Year]
+
+### Project Context
+This Vehicle Rental System was developed as part of academic coursework to demonstrate:
+- Advanced Java programming concepts
+- Object-oriented design principles
+- Database integration with JDBC
+- GUI development with Swing
+- Software engineering best practices
+
+---
+
+## 🤝 Contributing
+
+This is an academic project, but suggestions and improvements are welcome! If you'd like to contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/improvement`)
+3. Commit your changes (`git commit -am 'Add some improvement'`)
+4. Push to the branch (`git push origin feature/improvement`)
+5. Create a Pull Request
+
+---
+
+## 📄 License
 
 This project is developed for educational purposes. All rights reserved.
 
