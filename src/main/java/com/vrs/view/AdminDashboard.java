@@ -273,8 +273,11 @@ public class AdminDashboard extends JFrame {
     }
 
     private void addVehicle() {
-        JOptionPane.showMessageDialog(this, "Add Vehicle functionality - to be implemented",
-                "Coming Soon", JOptionPane.INFORMATION_MESSAGE);
+        VehicleDialog dialog = new VehicleDialog(this, vehicleController);
+        dialog.setVisible(true);
+        if (dialog.getDialogResult()) {
+            loadVehicles(); // Refresh the vehicle list
+        }
     }
 
     private void editVehicle() {
@@ -284,8 +287,20 @@ public class AdminDashboard extends JFrame {
                     "No Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(this, "Edit Vehicle functionality - to be implemented",
-                "Coming Soon", JOptionPane.INFORMATION_MESSAGE);
+
+        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 0);
+        Vehicle selectedVehicle = vehicleController.getVehicleById(vehicleId);
+        
+        if (selectedVehicle != null) {
+            VehicleDialog dialog = new VehicleDialog(this, vehicleController, selectedVehicle);
+            dialog.setVisible(true);
+            if (dialog.getDialogResult()) {
+                loadVehicles(); // Refresh the vehicle list
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Unable to load vehicle details.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void deleteVehicle() {
