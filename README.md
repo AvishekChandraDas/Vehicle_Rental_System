@@ -351,14 +351,15 @@ For technical support or bug reports, please check the application logs and ensu
 ### Author
 **Avishek Chandra Das**
 - GitHub: [@AvishekChandraDas](https://github.com/AvishekChandraDas)
-- Email: [Your Email Address]
-- LinkedIn: [Your LinkedIn Profile]
+- Email: [Email](avishekchandradas@gmail.com)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/avishekchandradas)
 
 ### Academic Supervision
 **Course Instructor/Supervisor**
-- Institution: [Your University/College Name]
-- Course: Advanced Java Programming / Object-Oriented Programming
-- Academic Year: [Year]
+- [Khudeja Khanom Anwara](https://metrouni.edu.bd/sites/university/faculty-members/department-of-computer-science-engineering/180)
+- Institution: [Metropolitan University](https://metrouni.edu.bd)
+- Course:Object-Oriented Programming
+- Academic Year: 2025
 
 ### Project Context
 This Vehicle Rental System was developed as part of academic coursework to demonstrate:
