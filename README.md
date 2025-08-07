@@ -6,6 +6,33 @@
 
 This project is developed for **educational purposes** as part of academic coursework. 
 
+---
+
+## 👨‍💻 Author & Acknowledgments
+
+### Author
+**Avishek Chandra Das**
+- GitHub: [@AvishekChandraDas](https://github.com/AvishekChandraDas)
+- Email: [Email](avishekchandradas@gmail.com)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/avishekchandradas)
+
+### Academic Supervision
+**Course Instructor/Supervisor**
+- [Khudeja Khanom Anwara](https://metrouni.edu.bd/sites/university/faculty-members/department-of-computer-science-engineering/180)
+- Institution: [Metropolitan University](https://metrouni.edu.bd)
+- Course:Object-Oriented Programming
+- Academic Year: 2025
+
+### Project Context
+This Vehicle Rental System was developed as part of academic coursework to demonstrate:
+- Advanced Java programming concepts
+- Object-oriented design principles
+- Database integration with JDBC
+- GUI development with Swing
+- Software engineering best practices
+
+---
+
 - **Academic Use**: Free to use for learning and educational purposes
 - **Commercial Use**: Not permitted without explicit permission
 - **Modifications**: Allowed for educational and learning purposes
@@ -343,31 +370,6 @@ run.bat         # On Windows
 ### Support
 
 For technical support or bug reports, please check the application logs and ensure all system requirements are met.
-
----
-
-## 👨‍💻 Author & Acknowledgments
-
-### Author
-**Avishek Chandra Das**
-- GitHub: [@AvishekChandraDas](https://github.com/AvishekChandraDas)
-- Email: [Email](avishekchandradas@gmail.com)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/avishekchandradas)
-
-### Academic Supervision
-**Course Instructor/Supervisor**
-- [Khudeja Khanom Anwara](https://metrouni.edu.bd/sites/university/faculty-members/department-of-computer-science-engineering/180)
-- Institution: [Metropolitan University](https://metrouni.edu.bd)
-- Course:Object-Oriented Programming
-- Academic Year: 2025
-
-### Project Context
-This Vehicle Rental System was developed as part of academic coursework to demonstrate:
-- Advanced Java programming concepts
-- Object-oriented design principles
-- Database integration with JDBC
-- GUI development with Swing
-- Software engineering best practices
 
 ---
 
