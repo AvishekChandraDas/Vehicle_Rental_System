@@ -17,10 +17,7 @@ import java.text.ParseException;
 import java.util.regex.Pattern;
 
 public class UserRegistrationWindow extends JDialog {
-    private UserController userController;
-    private LoginWindow parentWindow;
-
-    // Form fields
+    // UI Components
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JPasswordField confirmPasswordField;
@@ -34,22 +31,28 @@ public class UserRegistrationWindow extends JDialog {
     private JLabel usernameValidation;
     private JLabel passwordValidation;
     private JLabel confirmPasswordValidation;
+    private JLabel firstNameValidation;
+    private JLabel lastNameValidation;
     private JLabel emailValidation;
     private JLabel phoneValidation;
 
-    // Password strength components
     private JProgressBar passwordStrengthBar;
     private JLabel passwordStrengthLabel;
+
+    // Controllers
+    private UserController userController;
+    private LoginWindow parentWindow;
 
     // Colors for validation
     private static final Color SUCCESS_COLOR = new Color(34, 139, 34);
     private static final Color ERROR_COLOR = new Color(220, 20, 60);
     private static final Color WARNING_COLOR = new Color(255, 140, 0);
-    private static final Color NEUTRAL_COLOR = new Color(128, 128, 128);
 
-    // Regex patterns for validation
+    // Validation patterns
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{3,20}$");
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s'-]{2,50}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^\\(\\d{3}\\) \\d{3}-\\d{4}$");
     private static final Pattern LICENSE_PATTERN = Pattern.compile("^[A-Z0-9]{6,15}$");
 
     public UserRegistrationWindow(LoginWindow parent) {
@@ -60,22 +63,26 @@ public class UserRegistrationWindow extends JDialog {
     }
 
     private void initializeUI() {
-        setSize(700, 750);
-        setLocationRelativeTo(parentWindow);
-        setResizable(false);
+        setTitle("User Registration - Smart Vehicle Rental System");
+        setSize(700, 800);
+        setLocationRelativeTo(getParent());
+        setResizable(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        // Main panel with modern styling
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+        // Initialize form fields first
+        initializeFormFields();
 
-        // Header panel with gradient-like effect
+        // Main container with proper spacing
+        JPanel mainPanel = new JPanel(new BorderLayout(0, 15));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mainPanel.setBackground(new Color(245, 248, 252));
+
+        // Header panel
         JPanel headerPanel = createHeaderPanel();
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
         // Form panel with improved layout
-        JPanel formPanel = createImprovedFormPanel();
+        JPanel formPanel = createFormPanel();
         JScrollPane scrollPane = new JScrollPane(formPanel);
         scrollPane.setBorder(null);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -84,101 +91,50 @@ public class UserRegistrationWindow extends JDialog {
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         // Button panel with modern styling
-        JPanel buttonPanel = createImprovedButtonPanel();
+        JPanel buttonPanel = createButtonPanel();
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
 
-        // Set default button
-        getRootPane().setDefaultButton((JButton) buttonPanel.getComponent(0));
+        // Initialize validation
+        initializeValidation();
+
+        // Set focus to username field
+        SwingUtilities.invokeLater(() -> usernameField.requestFocusInWindow());
     }
 
-    private JPanel createHeaderPanel() {
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(Color.WHITE);
-        headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+    private void initializeFormFields() {
+        // Initialize text fields
+        usernameField = new JTextField(20);
+        usernameField.setPreferredSize(new Dimension(350, 35));
+        usernameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        // Title with modern styling
-        JLabel titleLabel = new JLabel("Create Your Account", JLabel.CENTER);
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        titleLabel.setForeground(new Color(45, 52, 54));
+        firstNameField = new JTextField(20);
+        firstNameField.setPreferredSize(new Dimension(350, 35));
+        firstNameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        // Subtitle
-        JLabel subtitleLabel = new JLabel("Join us to start your vehicle rental journey", JLabel.CENTER);
-        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        subtitleLabel.setForeground(new Color(99, 110, 114));
+        lastNameField = new JTextField(20);
+        lastNameField.setPreferredSize(new Dimension(350, 35));
+        lastNameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        headerPanel.add(titleLabel, BorderLayout.NORTH);
-        headerPanel.add(subtitleLabel, BorderLayout.CENTER);
+        emailField = new JTextField(20);
+        emailField.setPreferredSize(new Dimension(350, 35));
+        emailField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        return headerPanel;
-    }
+        licenseField = new JTextField(20);
+        licenseField.setPreferredSize(new Dimension(350, 35));
+        licenseField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-    private JPanel createImprovedFormPanel() {
-        JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBackground(Color.WHITE);
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // Initialize password fields
+        passwordField = new JPasswordField(20);
+        passwordField.setPreferredSize(new Dimension(350, 35));
+        passwordField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8, 8, 8, 8);
-        gbc.anchor = GridBagConstraints.WEST;
+        confirmPasswordField = new JPasswordField(20);
+        confirmPasswordField.setPreferredSize(new Dimension(350, 35));
+        confirmPasswordField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        int row = 0;
-
-        // Username field with validation
-        addFormField(formPanel, gbc, row++, "Username", true,
-                usernameField = createStyledTextField(25),
-                usernameValidation = createValidationLabel());
-        addFieldValidator(usernameField, usernameValidation, this::validateUsername);
-
-        // Password field with strength indicator
-        addFormField(formPanel, gbc, row++, "Password", true,
-                passwordField = createStyledPasswordField(25),
-                passwordValidation = createValidationLabel());
-
-        // Password strength indicator
-        gbc.gridx = 1;
-        gbc.gridy = row++;
-        passwordStrengthBar = new JProgressBar(0, 100);
-        passwordStrengthBar.setStringPainted(true);
-        passwordStrengthBar.setPreferredSize(new Dimension(300, 6));
-        formPanel.add(passwordStrengthBar, gbc);
-
-        gbc.gridy = row++;
-        passwordStrengthLabel = new JLabel("Password strength: Weak");
-        passwordStrengthLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        passwordStrengthLabel.setForeground(NEUTRAL_COLOR);
-        formPanel.add(passwordStrengthLabel, gbc);
-
-        addPasswordStrengthValidator(passwordField, passwordValidation, passwordStrengthBar, passwordStrengthLabel);
-
-        // Confirm password field
-        addFormField(formPanel, gbc, row++, "Confirm Password", true,
-                confirmPasswordField = createStyledPasswordField(25),
-                confirmPasswordValidation = createValidationLabel());
-        addPasswordConfirmValidator(confirmPasswordField, confirmPasswordValidation);
-
-        // First name field
-        addFormField(formPanel, gbc, row++, "First Name", true,
-                firstNameField = createStyledTextField(25),
-                createValidationLabel());
-        addFieldValidator(firstNameField, (JLabel) formPanel.getComponent(formPanel.getComponentCount() - 1),
-                this::validateName);
-
-        // Last name field
-        addFormField(formPanel, gbc, row++, "Last Name", true,
-                lastNameField = createStyledTextField(25),
-                createValidationLabel());
-        addFieldValidator(lastNameField, (JLabel) formPanel.getComponent(formPanel.getComponentCount() - 1),
-                this::validateName);
-
-        // Email field
-        addFormField(formPanel, gbc, row++, "Email Address", true,
-                emailField = createStyledTextField(25),
-                emailValidation = createValidationLabel());
-        addFieldValidator(emailField, emailValidation, this::validateEmail);
-
-        // Phone field with formatting
+        // Initialize phone field with formatting
         try {
             MaskFormatter phoneFormatter = new MaskFormatter("(###) ###-####");
             phoneFormatter.setPlaceholderCharacter('_');
@@ -186,135 +142,340 @@ public class UserRegistrationWindow extends JDialog {
         } catch (ParseException e) {
             phoneField = new JFormattedTextField();
         }
-        styleFormattedTextField(phoneField);
-        addFormField(formPanel, gbc, row++, "Phone Number", false,
-                phoneField,
-                phoneValidation = createValidationLabel());
-        addFieldValidator(phoneField, phoneValidation, this::validatePhone);
+        phoneField.setPreferredSize(new Dimension(350, 35));
+        phoneField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        // License number field
-        addFormField(formPanel, gbc, row++, "License Number", false,
-                licenseField = createStyledTextField(25),
-                createValidationLabel());
-        addFieldValidator(licenseField, (JLabel) formPanel.getComponent(formPanel.getComponentCount() - 1),
-                this::validateLicense);
+        // Set borders for all fields
+        Border fieldBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
+                BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
-        return formPanel;
+        usernameField.setBorder(fieldBorder);
+        firstNameField.setBorder(fieldBorder);
+        lastNameField.setBorder(fieldBorder);
+        emailField.setBorder(fieldBorder);
+        licenseField.setBorder(fieldBorder);
+        passwordField.setBorder(fieldBorder);
+        confirmPasswordField.setBorder(fieldBorder);
+        phoneField.setBorder(fieldBorder);
     }
 
-    private void addFormField(JPanel panel, GridBagConstraints gbc, int row, String labelText,
-            boolean required, JComponent field, JLabel validationLabel) {
-        // Label
+    private JPanel createHeaderPanel() {
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(245, 248, 252));
+
+        JLabel titleLabel = new JLabel("Create Your Account");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setForeground(new Color(44, 62, 80));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel subtitleLabel = new JLabel("Join us to start your vehicle rental journey");
+        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitleLabel.setForeground(new Color(127, 140, 141));
+        subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+        headerPanel.add(subtitleLabel, BorderLayout.SOUTH);
+
+        return headerPanel;
+    }
+
+    private JPanel createFormPanel() {
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("Account Information"),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 2, 5); // Reduced bottom inset for field rows
+
+        int row = 0;
+
+        // Username field
         gbc.gridx = 0;
         gbc.gridy = row;
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Username *"), gbc);
 
-        JLabel label = new JLabel(labelText + (required ? " *" : ""));
-        label.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        label.setForeground(new Color(45, 52, 54));
-        panel.add(label, gbc);
-
-        // Field
         gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-        panel.add(field, gbc);
+        gbc.weightx = 0.7;
+        formPanel.add(usernameField, gbc);
 
-        // Validation label
-        gbc.gridy = row + 1;
-        panel.add(validationLabel, gbc);
-    }
+        // Username validation (separate row with minimal spacing)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 8, 5); // No top margin, bottom margin for separation
+        usernameValidation = createValidationLabel();
+        formPanel.add(usernameValidation, gbc);
 
-    private JTextField createStyledTextField(int columns) {
-        JTextField field = new JTextField(columns);
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        field.setPreferredSize(new Dimension(300, 40));
-        field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 221, 225), 1),
-                BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+        // Password field
+        row++;
+        gbc.insets = new Insets(5, 5, 2, 5); // Reset to field spacing
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Password *"), gbc);
 
-        // Add focus styling
-        field.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                field.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(74, 144, 226), 2),
-                        BorderFactory.createEmptyBorder(7, 11, 7, 11)));
-            }
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(passwordField, gbc);
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                field.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(220, 221, 225), 1),
-                        BorderFactory.createEmptyBorder(8, 12, 8, 12)));
-            }
-        });
+        // Password validation (separate row)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 2, 5);
+        passwordValidation = createValidationLabel();
+        formPanel.add(passwordValidation, gbc);
 
-        return field;
-    }
+        // Password strength bar (separate row)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 8, 5);
+        passwordStrengthBar = new JProgressBar(0, 100);
+        passwordStrengthBar.setStringPainted(true);
+        passwordStrengthBar.setString("Password Strength");
+        passwordStrengthBar.setPreferredSize(new Dimension(350, 20));
+        formPanel.add(passwordStrengthBar, gbc);
 
-    private JPasswordField createStyledPasswordField(int columns) {
-        JPasswordField field = new JPasswordField(columns);
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        field.setPreferredSize(new Dimension(300, 40));
-        field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 221, 225), 1),
-                BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+        // Confirm Password field
+        row++;
+        gbc.insets = new Insets(5, 5, 2, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Confirm Password *"), gbc);
 
-        // Add focus styling
-        field.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                field.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(74, 144, 226), 2),
-                        BorderFactory.createEmptyBorder(7, 11, 7, 11)));
-            }
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(confirmPasswordField, gbc);
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                field.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(220, 221, 225), 1),
-                        BorderFactory.createEmptyBorder(8, 12, 8, 12)));
-            }
-        });
+        // Confirm password validation (separate row)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 8, 5);
+        confirmPasswordValidation = createValidationLabel();
+        formPanel.add(confirmPasswordValidation, gbc);
 
-        return field;
-    }
+        // First Name field
+        row++;
+        gbc.insets = new Insets(5, 5, 2, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("First Name *"), gbc);
 
-    private void styleFormattedTextField(JFormattedTextField field) {
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        field.setPreferredSize(new Dimension(300, 40));
-        field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 221, 225), 1),
-                BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(firstNameField, gbc);
 
-        // Add focus styling
-        field.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                field.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(74, 144, 226), 2),
-                        BorderFactory.createEmptyBorder(7, 11, 7, 11)));
-            }
+        // First name validation (separate row)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 8, 5);
+        firstNameValidation = createValidationLabel();
+        formPanel.add(firstNameValidation, gbc);
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                field.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(220, 221, 225), 1),
-                        BorderFactory.createEmptyBorder(8, 12, 8, 12)));
-            }
-        });
+        // Last Name field
+        row++;
+        gbc.insets = new Insets(5, 5, 2, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Last Name *"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(lastNameField, gbc);
+
+        // Last name validation (separate row)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 8, 5);
+        lastNameValidation = createValidationLabel();
+        formPanel.add(lastNameValidation, gbc);
+
+        // Email field
+        row++;
+        gbc.insets = new Insets(5, 5, 2, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Email Address *"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(emailField, gbc);
+
+        // Email validation (separate row)
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.weightx = 0.7;
+        gbc.insets = new Insets(0, 5, 8, 5);
+        emailValidation = createValidationLabel();
+        formPanel.add(emailValidation, gbc);
+
+        // Phone Number field
+        row++;
+        gbc.insets = new Insets(5, 5, 2, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Phone Number"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(phoneField, gbc);
+
+        // License Number field
+        row++;
+        gbc.insets = new Insets(8, 5, 5, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("License Number"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(licenseField, gbc);
+
+        return formPanel;
     }
 
     private JLabel createValidationLabel() {
         JLabel label = new JLabel(" ");
         label.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        label.setPreferredSize(new Dimension(300, 16));
+        label.setPreferredSize(new Dimension(400, 18));
+        label.setMinimumSize(new Dimension(400, 18));
+        label.setMaximumSize(new Dimension(400, 18));
+        label.setVerticalAlignment(SwingConstants.TOP);
         return label;
     }
 
-    // Validation methods
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        label.setHorizontalAlignment(SwingConstants.RIGHT);
+        return label;
+    }
+
+    private JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        buttonPanel.setBackground(new Color(245, 248, 252));
+
+        JButton createButton = new JButton("Create Account");
+        createButton.setPreferredSize(new Dimension(140, 40));
+        createButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        createButton.setBackground(new Color(52, 152, 219));
+        createButton.setForeground(Color.WHITE);
+        createButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        createButton.setFocusPainted(false);
+        createButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        createButton.addActionListener(this::handleRegistration);
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(140, 40));
+        cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        cancelButton.setBackground(new Color(236, 240, 241));
+        cancelButton.setForeground(new Color(44, 62, 80));
+        cancelButton.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(189, 195, 199), 1),
+                BorderFactory.createEmptyBorder(9, 19, 9, 19)));
+        cancelButton.setFocusPainted(false);
+        cancelButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        cancelButton.addActionListener(e -> dispose());
+
+        buttonPanel.add(createButton);
+        buttonPanel.add(cancelButton);
+
+        return buttonPanel;
+    }
+
+    private void initializeValidation() {
+        // Add validation for username
+        addFieldValidator(usernameField, usernameValidation, text -> {
+            if (text.isEmpty()) {
+                return new ValidationResult(false, "Username is required");
+            }
+            if (!USERNAME_PATTERN.matcher(text).matches()) {
+                return new ValidationResult(false,
+                        "Username must be 3-20 characters (letters, numbers, underscore only)");
+            }
+            return new ValidationResult(true, "✓ Username is available");
+        });
+
+        // Add validation for first name
+        addFieldValidator(firstNameField, firstNameValidation, text -> {
+            if (text.isEmpty()) {
+                return new ValidationResult(false, "First name is required");
+            }
+            if (!NAME_PATTERN.matcher(text).matches()) {
+                return new ValidationResult(false,
+                        "First name must be 2-50 characters (letters, spaces, apostrophes, hyphens only)");
+            }
+            return new ValidationResult(true, "✓ Valid name");
+        });
+
+        // Add validation for last name
+        addFieldValidator(lastNameField, lastNameValidation, text -> {
+            if (text.isEmpty()) {
+                return new ValidationResult(false, "Last name is required");
+            }
+            if (!NAME_PATTERN.matcher(text).matches()) {
+                return new ValidationResult(false,
+                        "Last name must be 2-50 characters (letters, spaces, apostrophes, hyphens only)");
+            }
+            return new ValidationResult(true, "✓ Valid name");
+        });
+
+        // Add validation for email
+        addFieldValidator(emailField, emailValidation, text -> {
+            if (text.isEmpty()) {
+                return new ValidationResult(false, "Email is required");
+            }
+            if (!EMAIL_PATTERN.matcher(text).matches()) {
+                return new ValidationResult(false, "Please enter a valid email address");
+            }
+            return new ValidationResult(true, "✓ Valid email");
+        });
+
+        // Add password validation with strength indicator
+        addPasswordStrengthValidator(passwordField, passwordValidation, passwordStrengthBar);
+
+        // Add confirm password validation
+        addPasswordConfirmValidator(confirmPasswordField, confirmPasswordValidation);
+    }
+
+    // Functional interface for field validation
+    @FunctionalInterface
+    private interface FieldValidator {
+        ValidationResult validate(String text);
+    }
+
+    // Validation result class
+    private static class ValidationResult {
+        final boolean isValid;
+        final String message;
+
+        ValidationResult(boolean isValid, String message) {
+            this.isValid = isValid;
+            this.message = message;
+        }
+    }
+
     private void addFieldValidator(JTextField field, JLabel validationLabel, FieldValidator validator) {
         field.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -334,43 +495,14 @@ public class UserRegistrationWindow extends JDialog {
 
             private void validateField() {
                 SwingUtilities.invokeLater(() -> {
-                    String text = field.getText().trim();
-                    ValidationResult result = validator.validate(text);
+                    ValidationResult result = validator.validate(field.getText());
                     updateValidationLabel(validationLabel, result);
                 });
             }
         });
     }
 
-    private void addFieldValidator(JFormattedTextField field, JLabel validationLabel, FieldValidator validator) {
-        field.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateField();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateField();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateField();
-            }
-
-            private void validateField() {
-                SwingUtilities.invokeLater(() -> {
-                    String text = field.getText().trim();
-                    ValidationResult result = validator.validate(text);
-                    updateValidationLabel(validationLabel, result);
-                });
-            }
-        });
-    }
-
-    private void addPasswordStrengthValidator(JPasswordField field, JLabel validationLabel,
-            JProgressBar strengthBar, JLabel strengthLabel) {
+    private void addPasswordStrengthValidator(JPasswordField field, JLabel validationLabel, JProgressBar strengthBar) {
         field.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -390,18 +522,53 @@ public class UserRegistrationWindow extends JDialog {
             private void validatePassword() {
                 SwingUtilities.invokeLater(() -> {
                     String password = new String(field.getPassword());
-                    ValidationResult result = UserRegistrationWindow.this.validatePassword(password);
-                    int strength = calculatePasswordStrength(password);
+                    if (password.isEmpty()) {
+                        validationLabel.setText("Password is required");
+                        validationLabel.setForeground(ERROR_COLOR);
+                        strengthBar.setValue(0);
+                        strengthBar.setString("Password Strength");
+                        return;
+                    }
 
-                    updateValidationLabel(validationLabel, result);
-                    updatePasswordStrength(strengthBar, strengthLabel, strength, password);
+                    if (password.length() < 6) {
+                        validationLabel.setText("Password must be at least 6 characters");
+                        validationLabel.setForeground(ERROR_COLOR);
+                        strengthBar.setValue(0);
+                        strengthBar.setString("Too Short");
+                        return;
+                    }
+
+                    int strength = calculatePasswordStrength(password);
+                    strengthBar.setValue(strength);
+
+                    if (strength < 25) {
+                        validationLabel.setText("Password strength: Weak");
+                        validationLabel.setForeground(ERROR_COLOR);
+                        strengthBar.setString("Weak");
+                        strengthBar.setForeground(ERROR_COLOR);
+                    } else if (strength < 50) {
+                        validationLabel.setText("Password strength: Fair");
+                        validationLabel.setForeground(WARNING_COLOR);
+                        strengthBar.setString("Fair");
+                        strengthBar.setForeground(WARNING_COLOR);
+                    } else if (strength < 75) {
+                        validationLabel.setText("Password strength: Good");
+                        validationLabel.setForeground(new Color(255, 193, 7));
+                        strengthBar.setString("Good");
+                        strengthBar.setForeground(new Color(255, 193, 7));
+                    } else {
+                        validationLabel.setText("✓ Password strength: Strong");
+                        validationLabel.setForeground(SUCCESS_COLOR);
+                        strengthBar.setString("Strong");
+                        strengthBar.setForeground(SUCCESS_COLOR);
+                    }
                 });
             }
         });
     }
 
     private void addPasswordConfirmValidator(JPasswordField field, JLabel validationLabel) {
-        field.getDocument().addDocumentListener(new DocumentListener() {
+        DocumentListener validator = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 validateConfirmPassword();
@@ -421,342 +588,158 @@ public class UserRegistrationWindow extends JDialog {
                 SwingUtilities.invokeLater(() -> {
                     String password = new String(passwordField.getPassword());
                     String confirmPassword = new String(field.getPassword());
-                    ValidationResult result = validatePasswordConfirmation(password, confirmPassword);
-                    updateValidationLabel(validationLabel, result);
+
+                    if (confirmPassword.isEmpty()) {
+                        validationLabel.setText("Please confirm your password");
+                        validationLabel.setForeground(ERROR_COLOR);
+                    } else if (!password.equals(confirmPassword)) {
+                        validationLabel.setText("✗ Passwords do not match");
+                        validationLabel.setForeground(ERROR_COLOR);
+                    } else {
+                        validationLabel.setText("✓ Passwords match");
+                        validationLabel.setForeground(SUCCESS_COLOR);
+                    }
                 });
             }
-        });
-    }
-
-    private void updateValidationLabel(JLabel label, ValidationResult result) {
-        label.setText(result.message);
-        label.setForeground(result.isValid ? SUCCESS_COLOR : ERROR_COLOR);
-        label.setIcon(result.isValid ? createIcon("✓", SUCCESS_COLOR) : createIcon("✗", ERROR_COLOR));
-    }
-
-    private void updatePasswordStrength(JProgressBar bar, JLabel label, int strength, String password) {
-        bar.setValue(strength);
-
-        Color color;
-        String text;
-        if (password.isEmpty()) {
-            color = NEUTRAL_COLOR;
-            text = "Enter password";
-            bar.setValue(0);
-        } else if (strength < 30) {
-            color = ERROR_COLOR;
-            text = "Weak";
-        } else if (strength < 60) {
-            color = WARNING_COLOR;
-            text = "Fair";
-        } else if (strength < 80) {
-            color = new Color(255, 193, 7);
-            text = "Good";
-        } else {
-            color = SUCCESS_COLOR;
-            text = "Strong";
-        }
-
-        bar.setForeground(color);
-        label.setText("Password strength: " + text);
-        label.setForeground(color);
-    }
-
-    private Icon createIcon(String text, Color color) {
-        return new Icon() {
-            @Override
-            public void paintIcon(Component c, Graphics g, int x, int y) {
-                g.setColor(color);
-                g.setFont(new Font("Arial", Font.BOLD, 12));
-                g.drawString(text, x, y + 10);
-            }
-
-            @Override
-            public int getIconWidth() {
-                return 12;
-            }
-
-            @Override
-            public int getIconHeight() {
-                return 12;
-            }
         };
-    }
 
-    // Field validation implementations
-    private ValidationResult validateUsername(String username) {
-        if (username.isEmpty()) {
-            return new ValidationResult(false, "Username is required");
-        }
-        if (username.length() < 3) {
-            return new ValidationResult(false, "Username must be at least 3 characters");
-        }
-        if (username.length() > 20) {
-            return new ValidationResult(false, "Username must be less than 20 characters");
-        }
-        if (!USERNAME_PATTERN.matcher(username).matches()) {
-            return new ValidationResult(false, "Username can only contain letters, numbers, and underscores");
-        }
-        return new ValidationResult(true, "Username is available");
-    }
-
-    private ValidationResult validatePassword(String password) {
-        if (password.isEmpty()) {
-            return new ValidationResult(false, "Password is required");
-        }
-        if (password.length() < 6) {
-            return new ValidationResult(false, "Password must be at least 6 characters");
-        }
-
-        int strength = calculatePasswordStrength(password);
-        if (strength < 30) {
-            return new ValidationResult(false, "Password is too weak");
-        }
-
-        return new ValidationResult(true, "Password meets requirements");
-    }
-
-    private ValidationResult validatePasswordConfirmation(String password, String confirmPassword) {
-        if (confirmPassword.isEmpty()) {
-            return new ValidationResult(false, "Please confirm your password");
-        }
-        if (!password.equals(confirmPassword)) {
-            return new ValidationResult(false, "Passwords do not match");
-        }
-        return new ValidationResult(true, "Passwords match");
-    }
-
-    private ValidationResult validateName(String name) {
-        if (name.isEmpty()) {
-            return new ValidationResult(false, "Name is required");
-        }
-        if (name.length() < 2) {
-            return new ValidationResult(false, "Name must be at least 2 characters");
-        }
-        if (name.length() > 50) {
-            return new ValidationResult(false, "Name must be less than 50 characters");
-        }
-        if (!NAME_PATTERN.matcher(name).matches()) {
-            return new ValidationResult(false, "Name can only contain letters, spaces, apostrophes, and hyphens");
-        }
-        return new ValidationResult(true, "Valid name");
-    }
-
-    private ValidationResult validateEmail(String email) {
-        if (email.isEmpty()) {
-            return new ValidationResult(false, "Email is required");
-        }
-        if (!FormatUtils.isValidEmail(email)) {
-            return new ValidationResult(false, "Please enter a valid email address");
-        }
-        return new ValidationResult(true, "Valid email address");
-    }
-
-    private ValidationResult validatePhone(String phone) {
-        if (phone.isEmpty() || phone.equals("(___) ___-____")) {
-            return new ValidationResult(true, "Phone number is optional");
-        }
-        if (!FormatUtils.isValidPhoneNumber(phone)) {
-            return new ValidationResult(false, "Please enter a valid phone number");
-        }
-        return new ValidationResult(true, "Valid phone number");
-    }
-
-    private ValidationResult validateLicense(String license) {
-        if (license.isEmpty()) {
-            return new ValidationResult(true, "License number is optional");
-        }
-        if (!LICENSE_PATTERN.matcher(license.toUpperCase()).matches()) {
-            return new ValidationResult(false, "License number should be 6-15 characters, letters and numbers only");
-        }
-        return new ValidationResult(true, "Valid license number");
+        field.getDocument().addDocumentListener(validator);
+        passwordField.getDocument().addDocumentListener(validator);
     }
 
     private int calculatePasswordStrength(String password) {
-        if (password.isEmpty())
-            return 0;
-
         int strength = 0;
 
         // Length bonus
-        strength += Math.min(password.length() * 4, 25);
+        if (password.length() >= 8)
+            strength += 25;
+        else if (password.length() >= 6)
+            strength += 10;
 
-        // Character variety bonuses
+        if (password.length() >= 12)
+            strength += 10;
+
+        // Character variety bonus
         if (password.matches(".*[a-z].*"))
             strength += 5;
         if (password.matches(".*[A-Z].*"))
             strength += 5;
         if (password.matches(".*[0-9].*"))
             strength += 10;
-        if (password.matches(".*[^a-zA-Z0-9].*"))
+        if (password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*"))
             strength += 15;
 
-        // Length bonuses
-        if (password.length() >= 8)
-            strength += 10;
-        if (password.length() >= 12)
-            strength += 10;
+        // Bonus for mixed case and numbers
+        if (password.matches(".*[a-z].*") && password.matches(".*[A-Z].*"))
+            strength += 5;
+        if (password.matches(".*[0-9].*") && password.matches(".*[a-zA-Z].*"))
+            strength += 5;
 
-        // Patterns penalty
-        if (password.matches("^[a-z]+$") || password.matches("^[A-Z]+$") ||
-                password.matches("^[0-9]+$"))
-            strength -= 15;
+        // Penalty for common patterns
+        if (password.toLowerCase().matches(".*(password|123456|qwerty).*"))
+            strength -= 20;
+        if (password.matches(".*([a-zA-Z0-9])\\1{2,}.*"))
+            strength -= 10; // Repeated characters
 
-        return Math.min(Math.max(strength, 0), 100);
+        return Math.max(0, Math.min(100, strength));
     }
 
-    private JPanel createImprovedButtonPanel() {
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
-
-        // Register button with modern styling
-        JButton registerButton = new JButton("Create Account");
-        registerButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        registerButton.setPreferredSize(new Dimension(150, 45));
-        registerButton.setBackground(new Color(52, 152, 219));
-        registerButton.setForeground(Color.WHITE);
-        registerButton.setFocusPainted(false);
-        registerButton.setBorderPainted(false);
-        registerButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        registerButton.addActionListener(new RegisterActionListener());
-
-        // Hover effect for register button
-        registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                registerButton.setBackground(new Color(41, 128, 185));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                registerButton.setBackground(new Color(52, 152, 219));
-            }
-        });
-
-        // Cancel button
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        cancelButton.setPreferredSize(new Dimension(120, 45));
-        cancelButton.setBackground(Color.WHITE);
-        cancelButton.setForeground(new Color(99, 110, 114));
-        cancelButton.setFocusPainted(false);
-        cancelButton.setBorder(BorderFactory.createLineBorder(new Color(220, 221, 225), 1));
-        cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cancelButton.addActionListener(e -> dispose());
-
-        // Hover effect for cancel button
-        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cancelButton.setBackground(new Color(248, 249, 250));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cancelButton.setBackground(Color.WHITE);
-            }
-        });
-
-        buttonPanel.add(registerButton);
-        buttonPanel.add(cancelButton);
-
-        return buttonPanel;
+    private void updateValidationLabel(JLabel label, ValidationResult result) {
+        label.setText(result.message);
+        label.setForeground(result.isValid ? SUCCESS_COLOR : ERROR_COLOR);
     }
 
-    // Helper classes
-    private static class ValidationResult {
-        final boolean isValid;
-        final String message;
-
-        ValidationResult(boolean isValid, String message) {
-            this.isValid = isValid;
-            this.message = message;
+    private void handleRegistration(ActionEvent e) {
+        if (validateForm()) {
+            createUser();
         }
     }
 
-    @FunctionalInterface
-    private interface FieldValidator {
-        ValidationResult validate(String text);
-    }
+    private boolean validateForm() {
+        boolean isValid = true;
+        StringBuilder errors = new StringBuilder();
 
-    private class RegisterActionListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                // Get form data
-                String username = usernameField.getText().trim();
-                String password = new String(passwordField.getPassword());
-                String confirmPassword = new String(confirmPasswordField.getPassword());
-                String firstName = firstNameField.getText().trim();
-                String lastName = lastNameField.getText().trim();
-                String email = emailField.getText().trim();
-                String phone = phoneField.getText().trim();
-                String license = licenseField.getText().trim();
+        // Validate required fields
+        String username = usernameField.getText().trim();
+        String password = new String(passwordField.getPassword());
+        String confirmPassword = new String(confirmPasswordField.getPassword());
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String email = emailField.getText().trim();
 
-                // Validate all fields
-                if (!validateAllFields(username, password, confirmPassword, firstName, lastName, email, phone,
-                        license)) {
-                    return; // Validation failed, error message already shown
-                }
-
-                // Attempt registration
-                boolean success = userController.registerUser(username, password, firstName,
-                        lastName, email, phone.isEmpty() ? null : phone,
-                        license.isEmpty() ? null : license);
-
-                if (success) {
-                    showSuccessMessage("Registration successful! You can now log in with your new account.");
-                    parentWindow.refreshAfterRegistration();
-                    dispose();
-                } else {
-                    showErrorMessage("Registration failed. Username or email may already exist.");
-                }
-
-            } catch (IllegalArgumentException ex) {
-                showErrorMessage(ex.getMessage());
-            } catch (Exception ex) {
-                showErrorMessage("An error occurred during registration. Please try again.");
-                ex.printStackTrace();
-            }
+        if (username.isEmpty() || !USERNAME_PATTERN.matcher(username).matches()) {
+            errors.append("• Invalid username\n");
+            isValid = false;
         }
 
-        private boolean validateAllFields(String username, String password, String confirmPassword,
-                String firstName, String lastName, String email,
-                String phone, String license) {
-            StringBuilder errors = new StringBuilder();
+        if (password.length() < 6) {
+            errors.append("• Password must be at least 6 characters\n");
+            isValid = false;
+        }
 
-            // Validate required fields
-            if (!validateUsername(username).isValid)
-                errors.append("• ").append(validateUsername(username).message).append("\n");
-            if (!validatePassword(password).isValid)
-                errors.append("• ").append(validatePassword(password).message).append("\n");
-            if (!validatePasswordConfirmation(password, confirmPassword).isValid)
-                errors.append("• ").append(validatePasswordConfirmation(password, confirmPassword).message)
-                        .append("\n");
-            if (!validateName(firstName).isValid)
-                errors.append("• First Name: ").append(validateName(firstName).message).append("\n");
-            if (!validateName(lastName).isValid)
-                errors.append("• Last Name: ").append(validateName(lastName).message).append("\n");
-            if (!validateEmail(email).isValid)
-                errors.append("• ").append(validateEmail(email).message).append("\n");
+        if (!password.equals(confirmPassword)) {
+            errors.append("• Passwords do not match\n");
+            isValid = false;
+        }
 
-            // Validate optional fields if provided
-            if (!phone.isEmpty() && !validatePhone(phone).isValid)
-                errors.append("• ").append(validatePhone(phone).message).append("\n");
-            if (!license.isEmpty() && !validateLicense(license).isValid)
-                errors.append("• ").append(validateLicense(license).message).append("\n");
+        if (firstName.isEmpty() || !NAME_PATTERN.matcher(firstName).matches()) {
+            errors.append("• Invalid first name\n");
+            isValid = false;
+        }
 
-            if (errors.length() > 0) {
-                showErrorMessage("Please fix the following errors:\n\n" + errors.toString());
-                return false;
+        if (lastName.isEmpty() || !NAME_PATTERN.matcher(lastName).matches()) {
+            errors.append("• Invalid last name\n");
+            isValid = false;
+        }
+
+        if (email.isEmpty() || !EMAIL_PATTERN.matcher(email).matches()) {
+            errors.append("• Invalid email address\n");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            JOptionPane.showMessageDialog(this,
+                    "Please correct the following errors:\n\n" + errors.toString(),
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        return isValid;
+    }
+
+    private void createUser() {
+        try {
+            String username = usernameField.getText().trim();
+            String password = new String(passwordField.getPassword());
+            String firstName = firstNameField.getText().trim();
+            String lastName = lastNameField.getText().trim();
+            String email = emailField.getText().trim();
+            String phone = phoneField.getText().trim();
+            String license = licenseField.getText().trim();
+
+            // Create user through controller
+            boolean success = userController.registerUser(username, password, firstName, lastName, email, phone,
+                    license);
+
+            if (success) {
+                JOptionPane.showMessageDialog(this,
+                        "Account created successfully!\n\nYou can now log in with your credentials.",
+                        "Registration Successful",
+                        JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Registration failed. Username may already exist.",
+                        "Registration Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
-            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "An error occurred during registration: " + ex.getMessage(),
+                    "Registration Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    private void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Registration Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void showSuccessMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Registration Success", JOptionPane.INFORMATION_MESSAGE);
     }
 }

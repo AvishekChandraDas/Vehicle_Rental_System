@@ -47,7 +47,7 @@ This project is developed for **educational purposes** as part of academic cours
 <td>
 
 [**Metropolitan University**](https://metrouni.edu.bd)
-<br/>📍 Dhaka, Bangladesh
+<br/>📍 Sylhet , Bangladesh
 
 </td>
 </tr>
@@ -113,6 +113,15 @@ This project is developed for **educational purposes** as part of academic cours
 ```
 
 </div>
+
+### Direct SQLite Access:
+
+sqlite3 vrs_database.db 
+.headers on
+.mode column
+SELECT username, first_name, last_name FROM users;
+SELECT username, first_name, last_name FROM admins;
+.quit
 
 ### 🎯 **Learning Objectives Achieved**
 
