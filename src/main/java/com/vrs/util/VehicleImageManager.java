@@ -96,4 +96,42 @@ public class VehicleImageManager {
         }
         return false;
     }
+
+    /**
+     * Load a BufferedImage for a vehicle
+     * 
+     * @param vehicle The vehicle object
+     * @return BufferedImage or null if not found
+     */
+    public BufferedImage loadVehicleImage(com.vrs.model.Vehicle vehicle) {
+        try {
+            InputStream imageStream = null;
+            String imagePath = vehicle.getImagePath();
+
+            if (imagePath != null && !imagePath.trim().isEmpty()) {
+                // Try to load the specific image
+                String fullPath = imagePath.startsWith("/") ? imagePath : VEHICLE_IMAGES_PATH + imagePath;
+                imageStream = VehicleImageManager.class.getResourceAsStream(fullPath);
+            }
+
+            // If custom image not found, try to get default image based on make
+            if (imageStream == null) {
+                String defaultImageName = vehicle.getMake().toLowerCase() + "-default.png";
+                String defaultPath = VEHICLE_IMAGES_PATH + defaultImageName;
+                imageStream = VehicleImageManager.class.getResourceAsStream(defaultPath);
+            }
+
+            // If brand default not found, use generic default
+            if (imageStream == null) {
+                imageStream = VehicleImageManager.class.getResourceAsStream(DEFAULT_IMAGE_PATH);
+            }
+
+            if (imageStream != null) {
+                return ImageIO.read(imageStream);
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading vehicle image: " + e.getMessage());
+        }
+        return null;
+    }
 }
