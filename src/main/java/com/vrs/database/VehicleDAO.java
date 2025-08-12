@@ -10,8 +10,8 @@ public class VehicleDAO {
     public boolean addVehicle(Vehicle vehicle) throws SQLException {
         String sql = """
                     INSERT INTO vehicles (make, model, type, license_plate, daily_rate, is_available,
-                    color, year, capacity, description)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    color, year, capacity, description, image_path)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -27,6 +27,7 @@ public class VehicleDAO {
             pstmt.setInt(8, vehicle.getYear());
             pstmt.setInt(9, vehicle.getCapacity());
             pstmt.setString(10, vehicle.getDescription());
+            pstmt.setString(11, vehicle.getImagePath());
 
             int rowsAffected = pstmt.executeUpdate();
 
@@ -112,7 +113,7 @@ public class VehicleDAO {
     public boolean updateVehicle(Vehicle vehicle) throws SQLException {
         String sql = """
                     UPDATE vehicles SET make = ?, model = ?, type = ?, license_plate = ?,
-                    daily_rate = ?, is_available = ?, color = ?, year = ?, capacity = ?, description = ?
+                    daily_rate = ?, is_available = ?, color = ?, year = ?, capacity = ?, description = ?, image_path = ?
                     WHERE vehicle_id = ?
                 """;
 
@@ -129,7 +130,8 @@ public class VehicleDAO {
             pstmt.setInt(8, vehicle.getYear());
             pstmt.setInt(9, vehicle.getCapacity());
             pstmt.setString(10, vehicle.getDescription());
-            pstmt.setInt(11, vehicle.getVehicleId());
+            pstmt.setString(11, vehicle.getImagePath());
+            pstmt.setInt(12, vehicle.getVehicleId());
 
             return pstmt.executeUpdate() > 0;
         }
@@ -199,6 +201,7 @@ public class VehicleDAO {
         vehicle.setYear(rs.getInt("year"));
         vehicle.setCapacity(rs.getInt("capacity"));
         vehicle.setDescription(rs.getString("description"));
+        vehicle.setImagePath(rs.getString("image_path"));
         return vehicle;
     }
 }

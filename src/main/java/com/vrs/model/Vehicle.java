@@ -1,6 +1,5 @@
 package com.vrs.model;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Vehicle {
@@ -15,12 +14,14 @@ public class Vehicle {
     private int year;
     private int capacity;
     private String description;
+    private String imagePath; // Path to vehicle image
 
     public Vehicle() {
     }
 
     public Vehicle(int vehicleId, String make, String model, String type, String licensePlate,
-            double dailyRate, boolean isAvailable, String color, int year, int capacity, String description) {
+            double dailyRate, boolean isAvailable, String color, int year, int capacity, String description,
+            String imagePath) {
         this.vehicleId = vehicleId;
         this.make = make;
         this.model = model;
@@ -32,6 +33,7 @@ public class Vehicle {
         this.year = year;
         this.capacity = capacity;
         this.description = description;
+        this.imagePath = imagePath;
     }
 
     // Getters and Setters
@@ -121,6 +123,14 @@ public class Vehicle {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override

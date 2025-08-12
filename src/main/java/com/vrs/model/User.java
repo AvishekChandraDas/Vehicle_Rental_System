@@ -15,6 +15,10 @@ public class User {
     private LocalDateTime registrationDate;
     private boolean isActive;
 
+    // Security question for account recovery
+    private String securityQuestion1;
+    private String securityAnswer1;
+
     public User() {
         this.registrationDate = LocalDateTime.now();
         this.isActive = true;
@@ -32,6 +36,15 @@ public class User {
         this.licenseNumber = licenseNumber;
         this.registrationDate = LocalDateTime.now();
         this.isActive = true;
+    }
+
+    // Constructor with security question
+    public User(int userId, String username, String password, String firstName, String lastName,
+            String email, String phoneNumber, String licenseNumber,
+            String securityQuestion1, String securityAnswer1) {
+        this(userId, username, password, firstName, lastName, email, phoneNumber, licenseNumber);
+        this.securityQuestion1 = securityQuestion1;
+        this.securityAnswer1 = securityAnswer1;
     }
 
     // Getters and Setters
@@ -113,6 +126,23 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    // Security questions getters and setters
+    public String getSecurityQuestion1() {
+        return securityQuestion1;
+    }
+
+    public void setSecurityQuestion1(String securityQuestion1) {
+        this.securityQuestion1 = securityQuestion1;
+    }
+
+    public String getSecurityAnswer1() {
+        return securityAnswer1;
+    }
+
+    public void setSecurityAnswer1(String securityAnswer1) {
+        this.securityAnswer1 = securityAnswer1;
     }
 
     public String getFullName() {

@@ -2,11 +2,17 @@ package com.vrs.view;
 
 import com.vrs.controller.VehicleController;
 import com.vrs.model.Vehicle;
+import com.vrs.util.VehicleImageManager;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
 public class VehicleDialog extends JDialog {
@@ -26,6 +32,12 @@ public class VehicleDialog extends JDialog {
     private JTextField capacityField;
     private JTextArea descriptionArea;
     private JCheckBox availableCheckBox;
+
+    // Image upload components
+    private JTextField imagePathField;
+    private JButton browseImageButton;
+    private JLabel imagePreviewLabel;
+    private String selectedImagePath;
 
     // Buttons
     private JButton saveButton;
@@ -215,6 +227,44 @@ public class VehicleDialog extends JDialog {
         descScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panel.add(descScrollPane, gbc);
 
+        // Image Upload Section
+        row++;
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        panel.add(new JLabel("Vehicle Image:"), gbc);
+
+        // Image path field and browse button panel
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        JPanel imagePanel = new JPanel(new BorderLayout());
+
+        imagePathField = new JTextField(20);
+        imagePathField.setEditable(false);
+        imagePanel.add(imagePathField, BorderLayout.CENTER);
+
+        browseImageButton = new JButton("Browse");
+        browseImageButton.addActionListener(e -> browseForImage());
+        imagePanel.add(browseImageButton, BorderLayout.EAST);
+
+        panel.add(imagePanel, gbc);
+
+        // Image preview
+        row++;
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        imagePreviewLabel = new JLabel();
+        imagePreviewLabel.setPreferredSize(new Dimension(100, 80));
+        imagePreviewLabel.setBorder(BorderFactory.createTitledBorder("Image Preview"));
+        imagePreviewLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel.add(imagePreviewLabel, gbc);
+
         // Required fields note
         row++;
         gbc.gridx = 0;
@@ -265,6 +315,85 @@ public class VehicleDialog extends JDialog {
             if (availableCheckBox != null) {
                 availableCheckBox.setSelected(vehicle.isAvailable());
             }
+
+            // Populate image fields
+            String imagePath = vehicle.getImagePath();
+            if (imagePath != null && !imagePath.trim().isEmpty()) {
+                imagePathField.setText(imagePath);
+                selectedImagePath = imagePath;
+                updateImagePreview(imagePath);
+            }
+        }
+    }
+
+    private void browseForImage() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select Vehicle Image");
+
+        // Set file filter for images
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Image files", "jpg", "jpeg", "png", "gif", "bmp");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
+                // Copy image to resources directory
+                String fileName = selectedFile.getName();
+                String targetPath = copyImageToResources(selectedFile, fileName);
+
+                // Update UI
+                imagePathField.setText(fileName);
+                selectedImagePath = fileName;
+                updateImagePreview(fileName);
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this,
+                        "Error copying image file: " + e.getMessage(),
+                        "File Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private String copyImageToResources(File sourceFile, String fileName) throws IOException {
+        // Create resources/images/vehicles directory if it doesn't exist
+        File resourcesDir = new File("src/main/resources/images/vehicles/");
+        if (!resourcesDir.exists()) {
+            resourcesDir.mkdirs();
+        }
+
+        // Create unique filename if file already exists
+        String baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+        String extension = fileName.substring(fileName.lastIndexOf('.'));
+        File targetFile = new File(resourcesDir, fileName);
+
+        int counter = 1;
+        while (targetFile.exists()) {
+            fileName = baseName + "_" + counter + extension;
+            targetFile = new File(resourcesDir, fileName);
+            counter++;
+        }
+
+        // Copy file
+        Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        return fileName;
+    }
+
+    private void updateImagePreview(String imagePath) {
+        try {
+            ImageIcon imageIcon = VehicleImageManager.loadVehicleImage(imagePath, 100, 80);
+            if (imageIcon != null) {
+                imagePreviewLabel.setIcon(imageIcon);
+                imagePreviewLabel.setText("");
+            } else {
+                imagePreviewLabel.setIcon(null);
+                imagePreviewLabel.setText("No Preview");
+            }
+        } catch (Exception e) {
+            imagePreviewLabel.setIcon(null);
+            imagePreviewLabel.setText("No Preview");
         }
     }
 
@@ -345,6 +474,7 @@ public class VehicleDialog extends JDialog {
                 int year = Integer.parseInt(yearField.getText().trim());
                 int capacity = Integer.parseInt(capacityField.getText().trim());
                 String description = descriptionArea.getText().trim();
+                String imagePath = selectedImagePath; // Get the selected image path
 
                 boolean success;
                 if (isEditMode) {
@@ -352,7 +482,7 @@ public class VehicleDialog extends JDialog {
                     boolean isAvailable = availableCheckBox != null ? availableCheckBox.isSelected()
                             : vehicle.isAvailable();
                     success = vehicleController.updateVehicle(vehicle.getVehicleId(), make, model, type,
-                            licensePlate, dailyRate, isAvailable, color, year, capacity, description);
+                            licensePlate, dailyRate, isAvailable, color, year, capacity, description, imagePath);
 
                     if (success) {
                         JOptionPane.showMessageDialog(VehicleDialog.this,
@@ -368,7 +498,7 @@ public class VehicleDialog extends JDialog {
                 } else {
                     // Add new vehicle
                     success = vehicleController.addVehicle(make, model, type, licensePlate,
-                            dailyRate, color, year, capacity, description);
+                            dailyRate, color, year, capacity, description, imagePath);
 
                     if (success) {
                         JOptionPane.showMessageDialog(VehicleDialog.this,

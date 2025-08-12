@@ -71,6 +71,10 @@ public class BookingController {
     }
 
     public boolean cancelBooking(int bookingId) {
+        return cancelBooking(bookingId, false);
+    }
+
+    public boolean cancelBooking(int bookingId, boolean isAdminOverride) {
         try {
             Booking booking = bookingDAO.getBookingById(bookingId);
             if (booking == null) {
@@ -84,7 +88,8 @@ public class BookingController {
             }
 
             // Check if booking is in the future (allow cancellation up to start date)
-            if (booking.getStartDate().isBefore(LocalDate.now())) {
+            // Admin can override this restriction
+            if (!isAdminOverride && booking.getStartDate().isBefore(LocalDate.now())) {
                 throw new IllegalArgumentException("Cannot cancel past bookings");
             }
 

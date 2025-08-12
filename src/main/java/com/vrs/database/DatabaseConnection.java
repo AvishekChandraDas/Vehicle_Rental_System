@@ -90,6 +90,13 @@ public class DatabaseConnection {
                         )
                     """);
 
+            // Add image_path column to vehicles table if it doesn't exist
+            try {
+                stmt.execute("ALTER TABLE vehicles ADD COLUMN image_path TEXT");
+            } catch (SQLException e) {
+                // Column already exists, ignore error
+            }
+
             // Insert default admin if not exists
             stmt.execute("""
                         INSERT OR IGNORE INTO admins (username, password, first_name, last_name, email)

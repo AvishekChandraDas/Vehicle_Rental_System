@@ -10,6 +10,7 @@ import com.vrs.model.User;
 import com.vrs.model.Vehicle;
 import com.vrs.util.DateUtils;
 import com.vrs.util.FormatUtils;
+import com.vrs.util.VehicleImageManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -91,15 +92,25 @@ public class AdminDashboard extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
 
         // Vehicle table
-        String[] columnNames = { "ID", "Make", "Model", "Type", "Year", "Daily Rate", "License Plate", "Available" };
+        String[] columnNames = { "Image", "ID", "Make", "Model", "Type", "Year", "Daily Rate", "License Plate",
+                "Available" };
         vehicleTableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 0) { // Image column
+                    return ImageIcon.class;
+                }
+                return String.class;
+            }
         };
         vehicleTable = new JTable(vehicleTableModel);
         vehicleTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        vehicleTable.setRowHeight(60); // Make rows taller for images
 
         JScrollPane scrollPane = new JScrollPane(vehicleTable);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -222,7 +233,12 @@ public class AdminDashboard extends JFrame {
         List<Vehicle> vehicles = vehicleController.getAllVehicles();
 
         for (Vehicle vehicle : vehicles) {
+            // Load vehicle image (custom or default)
+            String imagePath = vehicle.getImagePath();
+            ImageIcon vehicleImage = VehicleImageManager.loadVehicleImage(imagePath, 50, 40);
+
             Object[] row = {
+                    vehicleImage, // Image as first column
                     vehicle.getVehicleId(),
                     vehicle.getMake(),
                     vehicle.getModel(),
@@ -288,7 +304,7 @@ public class AdminDashboard extends JFrame {
             return;
         }
 
-        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 0);
+        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 1); // ID is now column 1
         Vehicle selectedVehicle = vehicleController.getVehicleById(vehicleId);
 
         if (selectedVehicle != null) {
@@ -311,9 +327,9 @@ public class AdminDashboard extends JFrame {
             return;
         }
 
-        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 0);
-        String vehicleName = vehicleTableModel.getValueAt(selectedRow, 1) + " " +
-                vehicleTableModel.getValueAt(selectedRow, 2);
+        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 1); // ID is now column 1
+        String vehicleName = vehicleTableModel.getValueAt(selectedRow, 2) + " " +
+                vehicleTableModel.getValueAt(selectedRow, 3); // Make and Model are now columns 2 and 3
 
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Are you sure you want to delete " + vehicleName + "?",
@@ -340,8 +356,28 @@ public class AdminDashboard extends JFrame {
                     "No Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(this, "View User Details functionality - to be implemented",
-                "Coming Soon", JOptionPane.INFORMATION_MESSAGE);
+
+        try {
+            String username = (String) userTableModel.getValueAt(selectedRow, 1);
+
+            // Find the user from the loaded users list
+            List<User> users = userController.getAllUsers();
+            User selectedUser = users.stream()
+                    .filter(user -> user.getUsername().equals(username))
+                    .findFirst()
+                    .orElse(null);
+
+            if (selectedUser != null) {
+                UserDetailsDialog dialog = new UserDetailsDialog(this, selectedUser);
+                dialog.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Could not retrieve user details.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error viewing user details: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void deactivateUser() {
@@ -461,7 +497,7 @@ public class AdminDashboard extends JFrame {
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            boolean success = bookingController.cancelBooking(bookingId);
+            boolean success = bookingController.cancelBooking(bookingId, true);
             if (success) {
                 JOptionPane.showMessageDialog(this, "Booking cancelled successfully!",
                         "Success", JOptionPane.INFORMATION_MESSAGE);

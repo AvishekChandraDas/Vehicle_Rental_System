@@ -14,6 +14,11 @@ public class VehicleController {
 
     public boolean addVehicle(String make, String model, String type, String licensePlate,
             double dailyRate, String color, int year, int capacity, String description) {
+        return addVehicle(make, model, type, licensePlate, dailyRate, color, year, capacity, description, null);
+    }
+
+    public boolean addVehicle(String make, String model, String type, String licensePlate,
+            double dailyRate, String color, int year, int capacity, String description, String imagePath) {
         try {
             validateVehicleInput(make, model, type, licensePlate, dailyRate, year, capacity);
 
@@ -28,6 +33,7 @@ public class VehicleController {
             vehicle.setCapacity(capacity);
             vehicle.setDescription(description);
             vehicle.setAvailable(true);
+            vehicle.setImagePath(imagePath);
 
             return vehicleDAO.addVehicle(vehicle);
         } catch (SQLException e) {
@@ -75,6 +81,13 @@ public class VehicleController {
     public boolean updateVehicle(int vehicleId, String make, String model, String type,
             String licensePlate, double dailyRate, boolean isAvailable,
             String color, int year, int capacity, String description) {
+        return updateVehicle(vehicleId, make, model, type, licensePlate, dailyRate, isAvailable, color, year, capacity,
+                description, null);
+    }
+
+    public boolean updateVehicle(int vehicleId, String make, String model, String type,
+            String licensePlate, double dailyRate, boolean isAvailable,
+            String color, int year, int capacity, String description, String imagePath) {
         try {
             validateVehicleInput(make, model, type, licensePlate, dailyRate, year, capacity);
 
@@ -90,6 +103,7 @@ public class VehicleController {
             vehicle.setYear(year);
             vehicle.setCapacity(capacity);
             vehicle.setDescription(description);
+            vehicle.setImagePath(imagePath);
 
             return vehicleDAO.updateVehicle(vehicle);
         } catch (SQLException e) {

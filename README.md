@@ -116,7 +116,7 @@ This project is developed for **educational purposes** as part of academic cours
 
 ### Direct SQLite Access:
 
-sqlite3 vrs_database.db 
+sqlite3 vrs_database.db
 .headers on
 .mode column
 SELECT username, first_name, last_name FROM users;
@@ -335,7 +335,8 @@ _Streamlined reservation process with date validation_
 
 ### User Features
 
-- **User Registration & Login**: Secure user authentication system
+- **User Registration & Login**: Secure user authentication system with security question
+- **Password Recovery**: Account recovery system using 1 security question
 - **Browse Vehicles**: View available vehicles with detailed information
 - **Search & Filter**: Find vehicles by type, make, model, or other criteria
 - **Vehicle Booking**: Book vehicles for specific date ranges
@@ -507,12 +508,41 @@ The application uses SQLite database with the following tables:
 
 ### For Users
 
-1. **Registration**: Create a new account with valid credentials
+1. **Registration**: Create a new account with valid credentials and security questions
 2. **Login**: Access the system using your username and password
 3. **Browse Vehicles**: View available vehicles in the main dashboard
 4. **Search**: Use filters to find specific vehicle types
 5. **Book Vehicle**: Select dates and confirm booking
 6. **Manage Bookings**: View and cancel bookings from "My Bookings" tab
+
+### Password Recovery
+
+If you forget your password, you can recover your account using the security question:
+
+1. **Access Recovery**: Click "Forgot Password" on the login screen
+2. **Enter Username**: Provide your username to start recovery process
+3. **Answer Security Question**: Answer your security question correctly
+4. **Set New Password**: Create a new password (minimum 6 characters)
+5. **Login**: Use your new password to access your account
+
+**Available Security Questions:**
+
+- What is your favorite teacher's name?
+- What is your best friend's name?
+- What is your favorite color?
+- What is your mother's maiden name?
+- What is your pet's name?
+- In which city were you born?
+- What is your favorite movie?
+- What is your favorite food?
+- What was your first car model?
+- What is your childhood nickname?
+
+**Security Tips:**
+
+- Choose a question you'll remember the answer to
+- Keep your answer simple and consistent
+- Answer is case-insensitive for recovery
 
 ### For Administrators
 

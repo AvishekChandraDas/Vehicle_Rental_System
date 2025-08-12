@@ -14,7 +14,8 @@ public class UserController {
     }
 
     public boolean registerUser(String username, String password, String firstName, String lastName,
-            String email, String phoneNumber, String licenseNumber) {
+            String email, String phoneNumber, String licenseNumber,
+            String securityQuestion1, String securityAnswer1) {
         try {
             // Check if username is available
             if (!userDAO.isUsernameAvailable(username)) {
@@ -28,6 +29,7 @@ public class UserController {
 
             // Validate input
             validateUserInput(username, password, firstName, lastName, email);
+            validateSecurityQuestion(securityQuestion1, securityAnswer1);
 
             User user = new User();
             user.setUsername(username);
@@ -37,12 +39,22 @@ public class UserController {
             user.setEmail(email);
             user.setPhoneNumber(phoneNumber);
             user.setLicenseNumber(licenseNumber);
+            user.setSecurityQuestion1(securityQuestion1);
+            user.setSecurityAnswer1(securityAnswer1);
 
             return userDAO.registerUser(user);
         } catch (SQLException e) {
             System.err.println("Error registering user: " + e.getMessage());
             return false;
         }
+    }
+
+    // Legacy method for backward compatibility
+    public boolean registerUser(String username, String password, String firstName, String lastName,
+            String email, String phoneNumber, String licenseNumber) {
+        // Use default security question for legacy registration
+        return registerUser(username, password, firstName, lastName, email, phoneNumber, licenseNumber,
+                "What is your favorite color?", "");
     }
 
     public boolean loginUser(String username, String password) {
@@ -131,6 +143,55 @@ public class UserController {
         }
         if (email == null || !email.contains("@")) {
             throw new IllegalArgumentException("Invalid email address");
+        }
+    }
+
+    private void validateSecurityQuestion(String question, String answer) {
+        if (question == null || question.trim().isEmpty()) {
+            throw new IllegalArgumentException("Security question cannot be empty");
+        }
+        if (answer == null || answer.trim().isEmpty()) {
+            throw new IllegalArgumentException("Security answer cannot be empty");
+        }
+    }
+
+    /**
+     * Get user by username for account recovery
+     */
+    public User getUserByUsername(String username) {
+        try {
+            return userDAO.getUserByUsername(username);
+        } catch (SQLException e) {
+            System.err.println("Error getting user by username: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Verify security answer for account recovery
+     */
+    public boolean verifySecurityAnswer(String username, String answer) {
+        try {
+            return userDAO.verifySecurityAnswer(username, answer);
+        } catch (SQLException e) {
+            System.err.println("Error verifying security answer: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Reset password after successful security question verification
+     */
+    public boolean resetPassword(String username, String newPassword) {
+        try {
+            // Validate new password
+            if (newPassword == null || newPassword.length() < 6) {
+                throw new IllegalArgumentException("Password must be at least 6 characters long");
+            }
+            return userDAO.resetPassword(username, newPassword);
+        } catch (SQLException e) {
+            System.err.println("Error resetting password: " + e.getMessage());
+            return false;
         }
     }
 

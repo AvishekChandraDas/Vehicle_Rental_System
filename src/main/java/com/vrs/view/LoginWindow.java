@@ -26,7 +26,7 @@ public class LoginWindow extends JFrame {
     private void initializeUI() {
         setTitle("Vehicle Rental System - Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(580, 520);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setResizable(false);
 
@@ -77,17 +77,41 @@ public class LoginWindow extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.fill = GridBagConstraints.NONE;
         JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        usernameLabel.setForeground(new Color(80, 80, 80));
         centerPanel.add(usernameLabel, gbc);
 
-        usernameField = new JTextField(25);
-        usernameField.setFont(new Font("Arial", Font.PLAIN, 16));
-        usernameField.setPreferredSize(new Dimension(280, 40));
+        usernameField = new JTextField(40);
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 20));
+        usernameField.setPreferredSize(new Dimension(450, 60));
+        usernameField.setMinimumSize(new Dimension(450, 60));
+        usernameField.setMaximumSize(new Dimension(450, 60));
         usernameField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLoweredBevelBorder(),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+                BorderFactory.createLineBorder(new Color(200, 200, 200), 2, true),
+                BorderFactory.createEmptyBorder(12, 20, 12, 20)));
+        usernameField.setBackground(Color.WHITE);
+        usernameField.setForeground(new Color(60, 60, 60));
+
+        // Add focus listener for better visual feedback
+        usernameField.addFocusListener(new java.awt.event.FocusListener() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                usernameField.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(52, 152, 219), 3, true),
+                        BorderFactory.createEmptyBorder(12, 20, 12, 20)));
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                usernameField.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(200, 200, 200), 2, true),
+                        BorderFactory.createEmptyBorder(12, 20, 12, 20)));
+            }
+        });
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         centerPanel.add(usernameField, gbc);
 
         // Password
@@ -95,18 +119,65 @@ public class LoginWindow extends JFrame {
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.EAST;
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        passwordLabel.setForeground(new Color(80, 80, 80));
         centerPanel.add(passwordLabel, gbc);
 
-        passwordField = new JPasswordField(25);
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 16));
-        passwordField.setPreferredSize(new Dimension(280, 40));
+        passwordField = new JPasswordField(40);
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 20));
+        passwordField.setPreferredSize(new Dimension(450, 60));
+        passwordField.setMinimumSize(new Dimension(450, 60));
+        passwordField.setMaximumSize(new Dimension(450, 60));
         passwordField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLoweredBevelBorder(),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+                BorderFactory.createLineBorder(new Color(200, 200, 200), 2, true),
+                BorderFactory.createEmptyBorder(12, 20, 12, 20)));
+        passwordField.setBackground(Color.WHITE);
+        passwordField.setForeground(new Color(60, 60, 60));
+
+        // Add focus listener for better visual feedback
+        passwordField.addFocusListener(new java.awt.event.FocusListener() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                passwordField.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(52, 152, 219), 3, true),
+                        BorderFactory.createEmptyBorder(12, 20, 12, 20)));
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                passwordField.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(200, 200, 200), 2, true),
+                        BorderFactory.createEmptyBorder(12, 20, 12, 20)));
+            }
+        });
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
         centerPanel.add(passwordField, gbc);
+
+        // Forgot Password link below password field
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 0, 10, 0);
+        JButton forgotPasswordLink = new JButton("Forgot Password?");
+        forgotPasswordLink.setFont(new Font("Arial", Font.PLAIN, 12));
+        forgotPasswordLink.setForeground(new Color(52, 152, 219));
+        forgotPasswordLink.setContentAreaFilled(false);
+        forgotPasswordLink.setBorderPainted(false);
+        forgotPasswordLink.setFocusPainted(false);
+        forgotPasswordLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        forgotPasswordLink.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openPasswordRecoveryWindow();
+            }
+        });
+        centerPanel.add(forgotPasswordLink, gbc);
+
+        // Reset insets for other components
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
@@ -224,6 +295,11 @@ public class LoginWindow extends JFrame {
 
     private void openRegistrationWindow() {
         new UserRegistrationWindow(this).setVisible(true);
+    }
+
+    private void openPasswordRecoveryWindow() {
+        setVisible(false); // Hide login window
+        new PasswordRecoveryWindow().setVisible(true);
     }
 
     private void showErrorMessage(String message) {

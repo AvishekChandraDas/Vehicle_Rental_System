@@ -8,14 +8,15 @@ import com.vrs.model.User;
 import com.vrs.model.Vehicle;
 import com.vrs.util.DateUtils;
 import com.vrs.util.FormatUtils;
+import com.vrs.util.VehicleImageManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 public class UserDashboard extends JFrame {
     private UserController userController;
@@ -30,6 +31,7 @@ public class UserDashboard extends JFrame {
     private DefaultTableModel bookingTableModel;
     private JTextField searchField;
     private JComboBox<String> typeFilter;
+    private List<Vehicle> currentVehicleList; // Store current vehicles for selection
 
     public UserDashboard(UserController userController) {
         this.userController = userController;
@@ -108,15 +110,24 @@ public class UserDashboard extends JFrame {
         panel.add(searchPanel, BorderLayout.NORTH);
 
         // Vehicle table
-        String[] columnNames = { "ID", "Make", "Model", "Type", "Year", "Daily Rate", "Capacity", "Available" };
+        String[] columnNames = { "Image", "Make", "Model", "Type", "Year", "Daily Rate", "Capacity", "Available" };
         vehicleTableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 0) { // Image column
+                    return ImageIcon.class;
+                }
+                return String.class;
+            }
         };
         vehicleTable = new JTable(vehicleTableModel);
         vehicleTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        vehicleTable.setRowHeight(60); // Make rows taller for images
 
         JScrollPane scrollPane = new JScrollPane(vehicleTable);
         panel.add(scrollPane, BorderLayout.CENTER);
@@ -172,10 +183,15 @@ public class UserDashboard extends JFrame {
     private void loadVehicles() {
         vehicleTableModel.setRowCount(0);
         List<Vehicle> vehicles = vehicleController.getAvailableVehicles();
+        currentVehicleList = new ArrayList<>(vehicles); // Store for selection
 
         for (Vehicle vehicle : vehicles) {
+            // Load vehicle image (custom or default)
+            String imagePath = vehicle.getImagePath();
+            ImageIcon vehicleImage = VehicleImageManager.loadVehicleImage(imagePath, 50, 40);
+
             Object[] row = {
-                    vehicle.getVehicleId(),
+                    vehicleImage, // Image as first column
                     vehicle.getMake(),
                     vehicle.getModel(),
                     vehicle.getType(),
@@ -229,9 +245,15 @@ public class UserDashboard extends JFrame {
                 }
             }
 
+            currentVehicleList = new ArrayList<>(vehicles); // Update stored list
+
             for (Vehicle vehicle : vehicles) {
+                // Load vehicle image (custom or default)
+                String imagePath = vehicle.getImagePath();
+                ImageIcon vehicleImage = VehicleImageManager.loadVehicleImage(imagePath, 50, 40);
+
                 Object[] row = {
-                        vehicle.getVehicleId(),
+                        vehicleImage, // Image as first column
                         vehicle.getMake(),
                         vehicle.getModel(),
                         vehicle.getType(),
@@ -253,10 +275,8 @@ public class UserDashboard extends JFrame {
             return;
         }
 
-        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 0);
-        Vehicle vehicle = vehicleController.getVehicleById(vehicleId);
-
-        if (vehicle != null) {
+        if (currentVehicleList != null && selectedRow < currentVehicleList.size()) {
+            Vehicle vehicle = currentVehicleList.get(selectedRow);
             new VehicleDetailsDialog(this, vehicle).setVisible(true);
         }
     }
@@ -269,8 +289,8 @@ public class UserDashboard extends JFrame {
             return;
         }
 
-        int vehicleId = (Integer) vehicleTableModel.getValueAt(selectedRow, 0);
-        Vehicle vehicle = vehicleController.getVehicleById(vehicleId);
+        // Get vehicle from the stored list using the selected row index
+        Vehicle vehicle = currentVehicleList.get(selectedRow);
 
         if (vehicle != null) {
             new BookingDialog(this, vehicle, currentUser, bookingController).setVisible(true);

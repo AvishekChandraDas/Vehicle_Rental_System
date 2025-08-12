@@ -27,6 +27,10 @@ public class UserRegistrationWindow extends JDialog {
     private JFormattedTextField phoneField;
     private JTextField licenseField;
 
+    // Security question fields
+    private JComboBox<String> securityQuestion1Combo;
+    private JTextField securityAnswer1Field;
+
     // Validation labels
     private JLabel usernameValidation;
     private JLabel passwordValidation;
@@ -145,6 +149,28 @@ public class UserRegistrationWindow extends JDialog {
         phoneField.setPreferredSize(new Dimension(350, 35));
         phoneField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
+        // Initialize security question fields
+        String[] securityQuestions = {
+                "What is your favorite teacher's name?",
+                "What is your best friend's name?",
+                "What is your favorite color?",
+                "What is your mother's maiden name?",
+                "What is your pet's name?",
+                "In which city were you born?",
+                "What is your favorite movie?",
+                "What is your favorite food?",
+                "What was your first car model?",
+                "What is your childhood nickname?"
+        };
+
+        securityQuestion1Combo = new JComboBox<>(securityQuestions);
+        securityQuestion1Combo.setPreferredSize(new Dimension(350, 35));
+        securityQuestion1Combo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+        securityAnswer1Field = new JTextField(20);
+        securityAnswer1Field.setPreferredSize(new Dimension(350, 35));
+        securityAnswer1Field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
         // Set borders for all fields
         Border fieldBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
@@ -158,6 +184,7 @@ public class UserRegistrationWindow extends JDialog {
         passwordField.setBorder(fieldBorder);
         confirmPasswordField.setBorder(fieldBorder);
         phoneField.setBorder(fieldBorder);
+        securityAnswer1Field.setBorder(fieldBorder);
     }
 
     private JPanel createHeaderPanel() {
@@ -351,6 +378,44 @@ public class UserRegistrationWindow extends JDialog {
         gbc.gridx = 1;
         gbc.weightx = 0.7;
         formPanel.add(licenseField, gbc);
+
+        // Add security question section with separator
+        row++;
+        gbc.insets = new Insets(20, 5, 5, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        JLabel securityHeader = new JLabel("Security Question (For Account Recovery)");
+        securityHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        securityHeader.setForeground(new Color(44, 62, 80));
+        formPanel.add(securityHeader, gbc);
+
+        gbc.gridwidth = 1; // Reset gridwidth for subsequent fields
+
+        // Security Question
+        row++;
+        gbc.insets = new Insets(10, 5, 2, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Security Question *"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(securityQuestion1Combo, gbc);
+
+        // Security Answer
+        row++;
+        gbc.insets = new Insets(5, 5, 15, 5);
+        gbc.gridx = 0;
+        gbc.gridy = row;
+        gbc.weightx = 0.3;
+        formPanel.add(createLabel("Answer *"), gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 0.7;
+        formPanel.add(securityAnswer1Field, gbc);
 
         return formPanel;
     }
@@ -697,6 +762,14 @@ public class UserRegistrationWindow extends JDialog {
             isValid = false;
         }
 
+        // Validate security question and answer
+        String answer1 = securityAnswer1Field.getText().trim();
+
+        if (answer1.isEmpty()) {
+            errors.append("• Security answer is required\n");
+            isValid = false;
+        }
+
         if (!isValid) {
             JOptionPane.showMessageDialog(this,
                     "Please correct the following errors:\n\n" + errors.toString(),
@@ -717,19 +790,24 @@ public class UserRegistrationWindow extends JDialog {
             String phone = phoneField.getText().trim();
             String license = licenseField.getText().trim();
 
-            // Create user through controller
+            // Get security question and answer
+            String securityQuestion1 = (String) securityQuestion1Combo.getSelectedItem();
+            String securityAnswer1 = securityAnswer1Field.getText().trim();
+
+            // Create user through controller with security question
             boolean success = userController.registerUser(username, password, firstName, lastName, email, phone,
-                    license);
+                    license, securityQuestion1, securityAnswer1);
 
             if (success) {
                 JOptionPane.showMessageDialog(this,
-                        "Account created successfully!\n\nYou can now log in with your credentials.",
+                        "Account created successfully!\n\nYou can now log in with your credentials.\n" +
+                                "Keep your security question and answer safe for account recovery.",
                         "Registration Successful",
                         JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Registration failed. Username may already exist.",
+                        "Registration failed. Username or email may already exist.",
                         "Registration Error",
                         JOptionPane.ERROR_MESSAGE);
             }

@@ -9,8 +9,9 @@ public class UserDAO {
 
     public boolean registerUser(User user) throws SQLException {
         String sql = """
-                    INSERT INTO users (username, password, first_name, last_name, email, phone_number, license_number)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO users (username, password, first_name, last_name, email, phone_number, license_number,
+                    security_question_1, security_answer_1)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -23,6 +24,8 @@ public class UserDAO {
             pstmt.setString(5, user.getEmail());
             pstmt.setString(6, user.getPhoneNumber());
             pstmt.setString(7, user.getLicenseNumber());
+            pstmt.setString(8, user.getSecurityQuestion1());
+            pstmt.setString(9, user.getSecurityAnswer1());
 
             int rowsAffected = pstmt.executeUpdate();
 
@@ -175,6 +178,70 @@ public class UserDAO {
         }
 
         user.setActive(rs.getBoolean("is_active"));
+
+        // Set security question and answer
+        user.setSecurityQuestion1(rs.getString("security_question_1"));
+        user.setSecurityAnswer1(rs.getString("security_answer_1"));
+
         return user;
+    }
+
+    /**
+     * Get user by username for account recovery
+     */
+    public User getUserByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM users WHERE username = ? AND is_active = 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapResultSetToUser(rs);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Verify security answer for account recovery
+     */
+    public boolean verifySecurityAnswer(String username, String answer) throws SQLException {
+        String sql = "SELECT security_answer_1 FROM users WHERE username = ? AND is_active = 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedAnswer = rs.getString("security_answer_1");
+                    // Case-insensitive comparison
+                    return storedAnswer != null && storedAnswer.equalsIgnoreCase(answer.trim());
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Reset password for account recovery
+     */
+    public boolean resetPassword(String username, String newPassword) throws SQLException {
+        String sql = "UPDATE users SET password = ? WHERE username = ? AND is_active = 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, username);
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        }
     }
 }
