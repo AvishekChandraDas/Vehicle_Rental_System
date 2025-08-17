@@ -8,7 +8,7 @@ This project is developed for **educational purposes** as part of academic cours
 
 ---
 
-## 👨‍💻 Author & Acknowledgments
+## �👨‍💻 Author & Acknowledgments
 
 <div align="center">
 
@@ -91,6 +91,85 @@ This project is developed for **educational purposes** as part of academic cours
 </td>
 </tr>
 </table>
+
+---
+
+## � Screenshots
+
+<div align="center">
+
+### 🔐 Login Interface
+
+_Clean and user-friendly authentication system_
+
+![Login Screen](screenshots/login-screen.png)
+
+---
+
+### 👤 User Dashboard
+
+_Intuitive vehicle browsing and booking interface_
+
+![User Dashboard](screenshots/user-dashboard.png)
+
+---
+
+### 🚗 Vehicle Details View
+
+_Enhanced vehicle showcase with images and detailed information_
+
+![Vehicle Details](screenshots/vehicle-details.png)
+
+---
+
+### 📋 Booking Process
+
+_Streamlined reservation system with date validation_
+
+![Booking Process](screenshots/booking-process.png)
+
+---
+
+### 👥 Admin Dashboard
+
+_Comprehensive management dashboard for administrators_
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+---
+
+### 🔧 Admin Vehicle Management
+
+_Add, edit, and manage vehicle inventory with image upload_
+
+![Admin Vehicle Management](screenshots/admin-vehicle-management.png)
+
+---
+
+### 📊 User Management
+
+_View and manage user accounts and booking history_
+
+![User Management](screenshots/user-management.png)
+
+---
+
+### 🎨 Enhanced UI Features
+
+_Modern styling with gradient backgrounds and professional design_
+
+<table>
+<tr>
+<td align="center"><img src="screenshots/user-profile-dialog.png" alt="User Profile" width="300"/><br/><sub><b>User Profile Management</b></sub></td>
+<td align="center"><img src="screenshots/booking-dialog.png" alt="Booking Dialog" width="300"/><br/><sub><b>Booking Dialog</b></sub></td>
+</tr>
+<tr>
+<td align="center"><img src="screenshots/vehicle-dialog.png" alt="Vehicle Dialog" width="300"/><br/><sub><b>Vehicle Management Dialog</b></sub></td>
+<td align="center"><img src="screenshots/user-details-dialog.png" alt="User Details" width="300"/><br/><sub><b>Admin User Details View</b></sub></td>
+</tr>
+</table>
+
+</div>
 
 ---
 
@@ -285,11 +364,100 @@ _"Excellence in education through practical implementation"_
 
 ---
 
+## 📸 Screenshots
+
+<div align="center">
+
+### 🔐 Login Interface
+
+_Clean and user-friendly authentication system_
+
+![Login Screen](screenshots/login-screen.png)
+
+---
+
+### 👤 User Dashboard
+
+_Intuitive vehicle browsing and booking interface_
+
+![User Dashboard](screenshots/user-dashboard.png)
+
+---
+
+### 🚗 Vehicle Details View
+
+_Enhanced vehicle showcase with images and detailed information_
+
+![Vehicle Details](screenshots/vehicle-details.png)
+
+---
+
+### 📋 Booking Process
+
+_Streamlined reservation system with date validation_
+
+![Booking Process](screenshots/booking-process.png)
+
+---
+
+### 👥 Admin Dashboard
+
+_Comprehensive management dashboard for administrators_
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+---
+
+### 🔧 Admin Vehicle Management
+
+_Add, edit, and manage vehicle inventory with image upload_
+
+![Admin Vehicle Management](screenshots/admin-vehicle-management.png)
+
+---
+
+### 📊 User Management
+
+_View and manage user accounts and booking history_
+
+![User Management](screenshots/user-management.png)
+
+---
+
+### 🎨 Enhanced UI Features
+
+_Modern styling with gradient backgrounds and professional design_
+
+<table>
+<tr>
+<td align="center"><img src="screenshots/user-profile-dialog.png" alt="User Profile" width="300"/><br/><sub><b>User Profile Management</b></sub></td>
+<td align="center"><img src="screenshots/booking-dialog.png" alt="Booking Dialog" width="300"/><br/><sub><b>Booking Dialog</b></sub></td>
+</tr>
+<tr>
+<td align="center"><img src="screenshots/vehicle-dialog.png" alt="Vehicle Dialog" width="300"/><br/><sub><b>Vehicle Management Dialog</b></sub></td>
+<td align="center"><img src="screenshots/user-details-dialog.png" alt="User Details" width="300"/><br/><sub><b>Admin User Details View</b></sub></td>
+</tr>
+</table>
+
+</div>
+
+---
+
 *⭐ If you found this project helpful, please consider giving it a star on GitHub!*icense](https://img.shields.io/badge/License-Educational-green.svg)](#license)
 
 A comprehensive desktop application for managing vehicle rentals built with Java and Swing. This system provides an intuitive interface for both users and administrators to handle vehicle bookings, user management, and rental operations.
 
 > **Academic Project**: This project was developed as part of advanced Java programming coursework, demonstrating professional software development practices and design patterns.
+
+---
+
+## 📋 Table of Contents
+
+---
+
+---
+
+## � Features
 
 ## 📋 Table of Contents
 
@@ -308,26 +476,6 @@ A comprehensive desktop application for managing vehicle rentals built with Java
 - [Author & Acknowledgments](#-author--acknowledgments)
 - [Contributing](#-contributing)
 - [License](#-license)
-
----
-
-## 📸 Screenshots
-
-### Login Interface
-
-_Clean and user-friendly authentication system_
-
-### User Dashboard
-
-_Intuitive vehicle browsing and booking interface_
-
-### Admin Panel
-
-_Comprehensive management dashboard for administrators_
-
-### Booking System
-
-_Streamlined reservation process with date validation_
 
 ---
 
